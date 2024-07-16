@@ -2,8 +2,8 @@
 
 public class Firstname : ValueObject<String>
 {
-    public Firstname(String name)
-        : base(name)
+    public Firstname(string firstname)
+        : base(firstname)
     {
     }
 

@@ -2,8 +2,8 @@
 
 public class PhoneNumber : ValueObject<String>
 {
-    public PhoneNumber(String name)
-        : base(name)
+    public PhoneNumber(string phoneNumber)
+        : base(phoneNumber)
     {
     }
 

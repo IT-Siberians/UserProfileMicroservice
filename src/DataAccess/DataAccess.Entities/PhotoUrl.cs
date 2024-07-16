@@ -2,8 +2,8 @@
 
 public class PhotoUrl : ValueObject<String>
 {
-    public PhotoUrl(String name)
-        : base(name)
+    public PhotoUrl(string photoUrl)
+        : base(photoUrl)
     {
     }
 

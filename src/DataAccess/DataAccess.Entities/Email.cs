@@ -2,8 +2,8 @@
 
 public class Email : ValueObject<String>
 {
-    public Email(String name)
-        : base(name)
+    public Email(string email)
+        : base(email)
     {
     }
 
