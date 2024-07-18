@@ -4,7 +4,9 @@
 public enum PublicDataFlags
 {
     Email,
-    Firstname,
-    Lastname,
+    FirstName,
+    LastName,
     PhoneNumber,
+    // This enumeration member must always be the last.
+    MaximumValue
 }

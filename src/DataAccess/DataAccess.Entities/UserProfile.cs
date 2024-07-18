@@ -1,95 +1,57 @@
-﻿namespace DataAccess.Entities;
+﻿using DataAccess.Entities.ValueObjects;
+
+namespace DataAccess.Entities;
 
 public class UserProfile
 {
     public Guid UserId { get; }
     public Email Email { get; }
     public Username Username { get; }
-    public Firstname? Firstname { get; private set; }
-    public Lastname? Lastname { get; private set; }
+    public FirstName? FirstName { get; private set; }
+    public LastName? LastName { get; private set; }
     public PhoneNumber? PhoneNumber { get; private set; }
     public PhotoUrl? PhotoUrl { get; private set; }
-    public PublicDataFlags PublicDataFlags { get; private set; }
+    public DataPublicityState DataPublicityState { get; private set; }
 
-    public UserProfile(Guid userId, Email email, Username username, Firstname firstname, Lastname lastname, PhoneNumber phoneNumber, PhotoUrl photoUrl, PublicDataFlags publicDataFlags)
+    public UserProfile(Guid userId, Email email, Username username, FirstName firstName, LastName lastName, PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPublicityState dataPublicityState)
     {
         UserId = userId;
         Email = email;
         Username = username;
-        Firstname = firstname;
-        Lastname = lastname;
+        FirstName = firstName;
+        LastName = lastName;
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
-        PublicDataFlags = publicDataFlags;
+        DataPublicityState = dataPublicityState;
     }   
 
-    public bool ChangeFirstname(string newFirstname)
+    public bool ChangeFirstName(FirstName? newFirstName)
     {
-        try
-        {
-            var firstname = new Firstname(newFirstname);
-            Firstname = firstname;
-        }
-        catch (ArgumentException)
-        {
-            return false;
-        }
+        FirstName = newFirstName;
         return true;
     }
 
-    public bool ChangeLastname(string newLastname)
+    public bool ChangeLastname(LastName? newLastName)
     {
-        try
-        {
-            var lastname = new Lastname(newLastname);
-            Lastname = lastname;
-        }
-        catch (ArgumentException)
-        {
-            return false;
-        }
+        LastName = newLastName;
         return true;
     }
 
-    public bool ChangePhoneNumber(string newPhoneNumber)
+    public bool ChangePhoneNumber(PhoneNumber? newPhoneNumber)
     {
-        try
-        {
-            var phoneNumber = new PhoneNumber(newPhoneNumber);
-            PhoneNumber = phoneNumber;
-        }
-        catch (ArgumentException)
-        {
-            return false;
-        }
+        PhoneNumber = newPhoneNumber;
         return true;
     }
 
-    public bool ChangePhotoUrl(string newPhotoUrl)
+    public bool ChangePhotoUrl(PhotoUrl? newPhotoUrl)
     {
-        try
-        {
-            var photoUrl = new PhotoUrl(newPhotoUrl);
-            PhotoUrl = photoUrl;
-        }
-        catch (ArgumentException)
-        {
-            return false;
-        }
+        PhotoUrl = newPhotoUrl;
         return true;
     }
 
-    public bool ChangePublicDataFlags(int newPublicDataFlags)
+    public bool ChangeDataPublicityState(DataPublicityState newDataPublicityState)
     {
-        try
-        {
-            PublicDataFlags flags = (PublicDataFlags)newPublicDataFlags;
-            PublicDataFlags = flags;
-        }
-        catch (InvalidCastException)
-        {
-            return false;
-        }
+        DataPublicityState = DataPublicityState;
         return true;
     }
 }
