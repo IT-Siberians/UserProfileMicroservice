@@ -3,40 +3,20 @@ using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class EmailValidator : IValidator<String>
+internal class EmailValidator : IValidator<String>
 {
-    public const int MAXIMUM_EMAIL_LENGTH = 255;
+    const int MAXIMUM_EMAIL_LENGTH = 255;
 
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(string value)
+    public void Validate(string value)
     {
         if (value == null)
-        {
-            _exceptionMessage = "Email cannot be null";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
-        {
-            _exceptionMessage = "Email cannot be empty";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
         if (value.Length > MAXIMUM_EMAIL_LENGTH)
-        {
-            _exceptionMessage = $"Invalid email address  length. Maximum length is {MAXIMUM_EMAIL_LENGTH}. Email value: {value}";
-            return false;
-        }
+            throw new EmailValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (!IsValidEmailAddressFormat(value))
-        {
-            _exceptionMessage = "Invalid email address format. Email value: " + value;
-            return false;
-        }
-        return true;
-    }
-
-    public Exception GetValidationException()
-    {
-        return new EmailValidationException(_exceptionMessage);
+            ThrowValidationException(ExceptionMessages.INVALID_EMAIL_FORMAT);
     }
 
     private bool IsValidEmailAddressFormat(string email)
@@ -45,4 +25,7 @@ public class EmailValidator : IValidator<String>
         Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
         return isMatch.Success;
     }
+
+    private void ThrowValidationException(string message)
+        => throw new EmailValidationException(message);
 }

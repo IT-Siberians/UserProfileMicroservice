@@ -2,33 +2,16 @@
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class PhotoUrlValidator : IValidator<String>
+internal class PhotoUrlValidator : IValidator<String>
 {
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(string value)
+    public void Validate(string value)
     {
         if (value == null)
-        {
-            _exceptionMessage = "Photo url cannot be null";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
-        {
-            _exceptionMessage = "Photo url cannot be empty";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
         if (!IsValidPhotoUrlFormat(value))
-        {
-            _exceptionMessage = "Invalid url format. Photo url value: " + value;
-            return false;
-        }
-        return true;
-    }
-
-    public Exception GetValidationException()
-    {
-        return new PhotoUrlValidationException(_exceptionMessage);
+            ThrowValidationException(ExceptionMessages.INVALID_URL_FORMAT);
     }
 
     private bool IsValidPhotoUrlFormat(string urlName)
@@ -36,4 +19,7 @@ public class PhotoUrlValidator : IValidator<String>
         return Uri.TryCreate(urlName, UriKind.Absolute, out Uri? uriResult)
             && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
     }
+
+    private void ThrowValidationException(string message)
+        => throw new PhotoUrlValidationException(message);
 }

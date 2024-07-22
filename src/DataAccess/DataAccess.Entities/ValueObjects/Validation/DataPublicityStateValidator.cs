@@ -1,30 +1,20 @@
-﻿using DataAccess.Entities.ValueObjects.Exceptions;
+﻿using DataAccess.Entities.ValueObjects.Enumerations;
+using DataAccess.Entities.ValueObjects.Exceptions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class DataPublicityValidator : IValidator<Int32>
+internal class DataPublicityValidator : IValidator<int>
 {
-    public static readonly int MAXIMUM_VALUE = (int)PublicDataFlags.MaximumValue - 1;
+    readonly static int PublicDataFlagsValuesSum = Enum.GetValues(typeof(PublicDataFlags)).Cast<int>().Sum(x => x);
 
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(int value)
+    public void Validate(int value)
     {
         if (value < 0)
-        {
-            _exceptionMessage = "The value cannot be less than zero";
-            return false;
-        }
-        if (value > MAXIMUM_VALUE)
-        {
-            _exceptionMessage = $"Value greater than maximum allowed value. Maximum value is {MAXIMUM_VALUE}. Validated value: {value}";
-            return false;
-        }
-        return true;
+            ThrowValidationException(ExceptionMessages.NEGATIVE_VALUE);
+        if (value > PublicDataFlagsValuesSum)
+            ThrowValidationException(ExceptionMessages.MAXIMUM_VALUE_EXCEEDED);
     }
 
-    public Exception GetValidationException()
-    {
-        return new DataPublicityStateValidationException(_exceptionMessage);
-    }
+    private void ThrowValidationException(string message)
+        => throw new DataPublicityStateValidationException(message);
 }

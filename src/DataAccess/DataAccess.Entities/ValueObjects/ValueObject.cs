@@ -13,10 +13,8 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
         _validator = validator;
         if (_validator == null)
             throw new ValidatorNotSpecifiedException(this);
-        if (!_validator.Validate(value))
-            throw _validator.GetValidationException();
-        if (value == null)
-            throw new ArgumentNullException($"{nameof(value)} cannot be null");
+        _validator.Validate(value);
+        ArgumentNullException.ThrowIfNull(value);
         Value = value;
     }
 

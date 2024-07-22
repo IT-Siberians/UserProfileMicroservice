@@ -3,40 +3,20 @@ using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class PhoneNumberValidator : IValidator<String>
+internal class PhoneNumberValidator : IValidator<String>
 {
-    public const int MAXIMUM_NAME_LENGTH = 30;
+    const int MAXIMUM_PHONE_NUMBER_LENGTH = 14;
 
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(string value)
+    public void Validate(string value)
     {
         if (value == null)
-        {
-            _exceptionMessage = "Phone number cannot be null";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
-        {
-            _exceptionMessage = "Phone number cannot be empty";
-            return false;
-        }
-        if (value.Length > MAXIMUM_NAME_LENGTH)
-        {
-            _exceptionMessage = $"Invalid phone number length. Maximum length is {MAXIMUM_NAME_LENGTH}. Phone number value: {value}";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
+        if (value.Length > MAXIMUM_PHONE_NUMBER_LENGTH)
+            ThrowValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (!IsValidPhoneNumberFormat(value))
-        {
-            _exceptionMessage = "The phone number must begin with a plus sign and all others characters must be digits. Phone number value: " + value;
-            return false;
-        }
-        return true;
-    }
-
-    public Exception GetValidationException()
-    {
-        return new PhoneNumberValidationException(_exceptionMessage);
+            ThrowValidationException(ExceptionMessages.INVALID_PHONE_NUMBER_FORMAT);
     }
 
     private bool IsValidPhoneNumberFormat(string name)
@@ -45,4 +25,7 @@ public class PhoneNumberValidator : IValidator<String>
         Match isMatch = Regex.Match(name, pattern, RegexOptions.None);
         return isMatch.Success;
     }
+
+    private void ThrowValidationException(string message)
+        => throw new PhoneNumberValidationException(message);
 }

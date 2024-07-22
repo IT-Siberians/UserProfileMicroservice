@@ -25,33 +25,28 @@ public class UserProfile
         DataPublicityState = dataPublicityState;
     }   
 
-    public bool ChangeFirstName(FirstName? newFirstName)
+    public void ChangeFirstName(FirstName? newFirstName)
     {
         FirstName = newFirstName;
-        return true;
     }
 
-    public bool ChangeLastname(LastName? newLastName)
+    public void ChangeLastname(LastName? newLastName)
     {
         LastName = newLastName;
-        return true;
     }
 
-    public bool ChangePhoneNumber(PhoneNumber? newPhoneNumber)
+    public void ChangePhoneNumber(PhoneNumber? newPhoneNumber)
     {
         PhoneNumber = newPhoneNumber;
-        return true;
     }
 
-    public bool ChangePhotoUrl(PhotoUrl? newPhotoUrl)
+    public void ChangePhotoUrl(PhotoUrl? newPhotoUrl)
     {
         PhotoUrl = newPhotoUrl;
-        return true;
     }
 
-    public bool ChangeDataPublicityState(DataPublicityState newDataPublicityState)
+    public void ChangeDataPublicityState(DataPublicityState newDataPublicityState)
     {
         DataPublicityState = DataPublicityState;
-        return true;
     }
 }

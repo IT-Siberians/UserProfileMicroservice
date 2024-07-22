@@ -3,45 +3,22 @@ using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class FirstNameValidator : IValidator<String>
+internal class FirstNameValidator : IValidator<String>
 {
-    public const int MAXIMUM_NAME_LENGTH = 30;
+    const int MAXIMUM_NAME_LENGTH = 30;
     
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(string value)
+    public void Validate(string value)
     {
         if (value == null)
-        {
-            _exceptionMessage = "First name cannot be null";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
-        {
-            _exceptionMessage = "First name cannot be empty";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
         if (value.Length > MAXIMUM_NAME_LENGTH)
-        {
-            _exceptionMessage = $"Invalid first name length. Maximum length is {MAXIMUM_NAME_LENGTH}. First name value: {value}";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.MAXIMUM_VALUE_EXCEEDED);
         if (!IsValidCharacterSet(value))
-        {
-            _exceptionMessage = "The name must be Latin only or Cyrillic only. First name value: " + value;
-            return false;
-        }
-        if (!IsValidNameCapitalization(value))
-        {
-            _exceptionMessage = "The name must begin with an uppercase letter and all others must be lowercase. First name value: " + value;
-            return false;
-        }
-        return true;
-    }
-
-    public Exception GetValidationException()
-    {
-        return new FirstNameValidationException(_exceptionMessage);
+            ThrowValidationException(ExceptionMessages.INVALID_NAME_CHARACTER_SET);
+        if (!IsValidNameCapitalization(value)) 
+        ThrowValidationException(ExceptionMessages.INVALID_NAME_CAPITALIZATION);
     }
 
     private bool IsValidCharacterSet(string name)
@@ -57,4 +34,7 @@ public class FirstNameValidator : IValidator<String>
         Match isMatch = Regex.Match(name, pattern, RegexOptions.None);
         return isMatch.Success;
     }
+
+    private void ThrowValidationException(string message)
+        => throw new FirstNameValidationException(message);
 }

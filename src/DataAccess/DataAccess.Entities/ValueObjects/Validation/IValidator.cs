@@ -2,6 +2,5 @@
 
 public interface IValidator<T>
 {
-    bool Validate(T value);
-    Exception GetValidationException();
+    void Validate(T value);
 }

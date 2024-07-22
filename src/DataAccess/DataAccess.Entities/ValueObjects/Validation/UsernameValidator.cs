@@ -3,46 +3,23 @@ using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
-public class UsernameValidator : IValidator<String>
+internal class UsernameValidator : IValidator<String>
 {
     public const int MAXIMUM_NAME_LENGTH = 30;
     public const int MINIMUM_NAME_LENGTH = 3;
 
-    private String _exceptionMessage = String.Empty;
-
-    public bool Validate(string value)
+    public void Validate(string value)
     {
         if (value == null)
-        {
-            _exceptionMessage = "Username cannot be null";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
-        {
-            _exceptionMessage = "Username cannot be empty";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
         if (value.Length > MAXIMUM_NAME_LENGTH)
-        {
-            _exceptionMessage = $"Invalid username  length. Maximum length is {MAXIMUM_NAME_LENGTH}. Username value: {value}";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (CountAlphanumericCharacters(value) < MINIMUM_NAME_LENGTH)
-        {
-            _exceptionMessage = $"Invalid username  length. the minimum number of alphanumeric characters is equal to {MINIMUM_NAME_LENGTH}. Username value: {value}";
-            return false;
-        }
+            ThrowValidationException(ExceptionMessages.USERNAME_LENGTH_LESS_THAN_MINIMUM_VALUE);
         if (!IsValidCharacterSet(value))
-        {
-            _exceptionMessage = "The username contains invalid characters. Username value: " + value;
-            return false;
-        }
-        return true;
-    }
-
-    public Exception GetValidationException()
-    {
-        return new UsernameValidationException(_exceptionMessage);
+            ThrowValidationException(ExceptionMessages.INVALID_USERNAME_CHARACTER_SET);
     }
 
     private bool IsValidCharacterSet(string name)
@@ -55,4 +32,6 @@ public class UsernameValidator : IValidator<String>
     private int CountAlphanumericCharacters(string name)
         => name.Where(ch => Char.IsLetterOrDigit(ch)).Count();
 
+    private void ThrowValidationException(string message)
+        => throw new UsernameValidationException(message);
 }
