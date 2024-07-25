@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities.ValueObjects.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
@@ -26,6 +27,7 @@ internal class PhoneNumberValidator : IValidator<String>
         return isMatch.Success;
     }
 
+    [DoesNotReturn]
     private void ThrowValidationException(string message)
         => throw new PhoneNumberValidationException(message);
 }

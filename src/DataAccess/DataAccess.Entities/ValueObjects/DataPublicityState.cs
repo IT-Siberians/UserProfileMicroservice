@@ -2,11 +2,4 @@
 
 namespace DataAccess.Entities.ValueObjects;
 
-public   class DataPublicityState : ValueObject<int>
-{
-    public DataPublicityState(int state)
-        : base(new DataPublicityValidator(), state)
-    {
-
-    }
-}
+public   class DataPublicityState(int state) : ValueObject<int>(new DataPublicityValidator(), state);

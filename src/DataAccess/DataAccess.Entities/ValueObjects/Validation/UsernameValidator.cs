@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities.ValueObjects.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
@@ -32,6 +33,7 @@ internal class UsernameValidator : IValidator<String>
     private int CountAlphanumericCharacters(string name)
         => name.Where(ch => Char.IsLetterOrDigit(ch)).Count();
 
-    private void ThrowValidationException(string message)
+    [DoesNotReturn]    
+        private void ThrowValidationException(string message)
         => throw new UsernameValidationException(message);
 }

@@ -2,11 +2,4 @@
 
 namespace DataAccess.Entities.ValueObjects;
 
-public class Email : ValueObject<string>
-{
-    public Email(string email)
-        : base(new EmailValidator(), email)
-    {
-    }
-
-}
+public class Email(string email) : ValueObject<string>(new EmailValidator(), email);

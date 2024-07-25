@@ -1,10 +1,3 @@
 ﻿namespace DataAccess.Entities.ValueObjects.Exceptions;
 
-public class DomainValidationException : Exception
-{
-    public DomainValidationException(string message)
-        : base(message)
-    {
-
-    }
-}
+public class DomainValidationException(string message) : Exception(message);

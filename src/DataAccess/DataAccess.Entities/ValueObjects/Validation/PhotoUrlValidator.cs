@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities.ValueObjects.Exceptions;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DataAccess.Entities.ValueObjects.Validation;
 
@@ -20,6 +21,7 @@ internal class PhotoUrlValidator : IValidator<String>
             && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
     }
 
+    [DoesNotReturn]
     private void ThrowValidationException(string message)
         => throw new PhotoUrlValidationException(message);
 }

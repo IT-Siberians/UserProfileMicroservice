@@ -2,10 +2,4 @@
 
 namespace DataAccess.Entities.ValueObjects;
 
-public class Username : ValueObject<string>
-{
-    public Username(string name)
-        : base(new UsernameValidator(), name)
-    {
-    }
-}
+public class Username(string username) : ValueObject<string>(new UsernameValidator(), username);

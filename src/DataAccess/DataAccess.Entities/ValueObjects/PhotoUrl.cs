@@ -2,10 +2,4 @@
 
 namespace DataAccess.Entities.ValueObjects;
 
-public class PhotoUrl : ValueObject<string>
-{
-    public PhotoUrl(string photoUrl)
-        : base(new PhotoUrlValidator(), photoUrl)
-    {
-    }
-}
+public class PhotoUrl(string photoUrl) : ValueObject<string>(new PhotoUrlValidator(), photoUrl);
