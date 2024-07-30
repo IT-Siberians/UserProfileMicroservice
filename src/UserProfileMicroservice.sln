@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Entities", "DataAccess\DataAccess.Entities\DataAccess.Entities.csproj", "{4B9CD219-4101-4FE9-83E5-743C8351DFAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Entities", "DataAccess\DataAccess.Entities\DataAccess.Entities.csproj", "{4B9CD219-4101-4FE9-83E5-743C8351DFAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repositories.Abstractions", "DataAccess\DataAccess.Repositories.Abstractions\DataAccess.Repositories.Abstractions.csproj", "{61A29E6D-F558-4435-8B40-6E8AC7AE2972}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4B9CD219-4101-4FE9-83E5-743C8351DFAA} = {4B9CD219-4101-4FE9-83E5-743C8351DFAA}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repositories.Implementations", "DataAccess\DataAccess.Repositories.Implementations\DataAccess.Repositories.Implementations.csproj", "{E44A7BA0-BC64-4211-AF42-F002054482A8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{61A29E6D-F558-4435-8B40-6E8AC7AE2972} = {61A29E6D-F558-4435-8B40-6E8AC7AE2972}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +25,14 @@ Global
 		{4B9CD219-4101-4FE9-83E5-743C8351DFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B9CD219-4101-4FE9-83E5-743C8351DFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B9CD219-4101-4FE9-83E5-743C8351DFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A29E6D-F558-4435-8B40-6E8AC7AE2972}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A29E6D-F558-4435-8B40-6E8AC7AE2972}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A29E6D-F558-4435-8B40-6E8AC7AE2972}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A29E6D-F558-4435-8B40-6E8AC7AE2972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

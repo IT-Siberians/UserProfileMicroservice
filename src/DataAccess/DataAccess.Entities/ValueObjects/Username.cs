@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities.ValueObjects.Validation;
+﻿using DataAccess.Entities.ValueObjects.Base;
+using DataAccess.Entities.ValueObjects.Validation;
 
 namespace DataAccess.Entities.ValueObjects;
 

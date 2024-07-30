@@ -2,9 +2,9 @@
 
 namespace DataAccess.Entities;
 
-public class UserProfile
+public class UserProfile : IEntity<Guid>
 {
-    public Guid UserId { get; }
+    public Guid Id { get; }
     public Email Email { get; }
     public Username Username { get; }
     public FirstName? FirstName { get; private set; }
@@ -13,9 +13,9 @@ public class UserProfile
     public PhotoUrl? PhotoUrl { get; private set; }
     public DataPublicityState DataPublicityState { get; private set; }
 
-    public UserProfile(Guid userId, Email email, Username username, FirstName firstName, LastName lastName, PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPublicityState dataPublicityState)
+    public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName, PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPublicityState dataPublicityState)
     {
-        UserId = userId;
+        Id = id;
         Email = email;
         Username = username;
         FirstName = firstName;

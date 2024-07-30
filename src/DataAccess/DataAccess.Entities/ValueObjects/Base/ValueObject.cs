@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities.ValueObjects.Exceptions;
 using DataAccess.Entities.ValueObjects.Validation;
 
-namespace DataAccess.Entities.ValueObjects;
+namespace DataAccess.Entities.ValueObjects.Base;
 
 public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
 {
@@ -21,7 +21,7 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
     public override string ToString()
     {
         return Value?.ToString() ?? GetType().ToString();
-            }
+    }
 
     public override int GetHashCode()
     {
@@ -44,15 +44,15 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
 
     public static bool operator ==(ValueObject<T>? left, ValueObject<T>? right)
     {
-        if (((object?)left) == null || ((object?)right) == null)
-            return Object.Equals(left, right);
+        if ((object?)left == null || (object?)right == null)
+            return Equals(left, right);
         return left.Equals(right);
     }
 
-    public static bool operator !=(ValueObject<T>?    left, ValueObject<T>? right)
+    public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
     {
-        if (((object?)left) == null || ((object?)right) == null)
-            return !Object.Equals(left, right);
+        if ((object?)left == null || (object?)right == null)
+            return !Equals(left, right);
         return !left.Equals(right);
     }
 }
