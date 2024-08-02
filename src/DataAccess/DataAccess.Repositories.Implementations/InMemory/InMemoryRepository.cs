@@ -7,46 +7,49 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     where TEntity : IEntity<TId>
     where TId : struct
 {
-    protected List<TEntity> Entities = entities.ToList();
+    protected List<TEntity> EntityList = entities.ToList();
 
-    public InMemoryRepository() : this([])
+    public InMemoryRepository()
+        : this([])
     {
 
     }
+
     public Task<TEntity> AddAsync(TEntity entity)
     {
-        Entities.Add(entity);
+        EntityList.Add(entity);
         return Task.FromResult(entity);
     }
 
     public Task DeleteAsync(TEntity entity)
+        => DeleteAsync(entity.Id);
+
+    public Task DeleteAsync(TId id)
     {
-        Entities.Remove(entity);
+        for (int i = 0; i < EntityList.Count; i++)
+            if (EntityList[i].Id.Equals(id))
+        {
+                EntityList.RemoveAt(i);
+                break;
+            }
         return Task.CompletedTask;
-
-    }
-    public async Task DeleteAsync(TId id)
-    {
-        var entity = await GetByIdAsync(id);
-        if (entity is null)
-            return;
-        await DeleteAsync(entity);
     }
 
-
-    public Task<IEnumerable<TEntity>> GetAllAsync()
-        => Task.FromResult(Entities.AsEnumerable());
+        public Task<IEnumerable<TEntity>> GetAllAsync()
+        => Task.FromResult(EntityList.AsEnumerable());
 
     public Task<TEntity?> GetByIdAsync(TId id)
-        => Task.FromResult(Entities.FirstOrDefault(x => x.Id.Equals(id)));
+        => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id)));
 
         public Task UpdateAsync(TEntity entity)
     {
-        var entityToUpdate = Entities.FirstOrDefault(x => x.Id.Equals(entity.Id));
-        if (entityToUpdate is null)
-            return Task.CompletedTask;
-        var index = Entities.IndexOf(entityToUpdate);
-        Entities[index] = entity;
+        for (int i = 0; i < EntityList.Count; i++)
+            if (EntityList[i].Id.Equals(entity.Id))
+            {
+                EntityList[i] = entity;
+                break;
+            }
         return Task.CompletedTask;
     }
+
 }
