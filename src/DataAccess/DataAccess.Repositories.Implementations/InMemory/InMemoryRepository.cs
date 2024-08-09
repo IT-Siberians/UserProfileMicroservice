@@ -1,11 +1,11 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess.Entities.Base;
 using DataAccess.Repositories.Abstractions;
 
 namespace DataAccess.Repositories.Implementations.InMemory;
 
 public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : IRepository<TEntity, TId>
-    where TEntity : IEntity<TId>
-    where TId : struct
+    where TEntity : Entity<TId>
+    where TId : struct, IEquatable<TId>
 {
     protected List<TEntity> EntityList = entities.ToList();
 
@@ -36,7 +36,7 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     }
 
     public Task<IEnumerable<TEntity>> GetAllAsync()
-    => Task.FromResult(EntityList.AsEnumerable());
+        => Task.FromResult(EntityList.AsEnumerable());
 
     public Task<TEntity?> GetByIdAsync(TId id)
         => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id)));

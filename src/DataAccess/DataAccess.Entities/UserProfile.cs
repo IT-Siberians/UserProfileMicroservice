@@ -1,10 +1,10 @@
-﻿using DataAccess.Entities.ValueObjects;
+﻿using DataAccess.Entities.Base;
+using DataAccess.Entities.ValueObjects;
 
 namespace DataAccess.Entities;
 
-public class UserProfile : IEntity<Guid>
+public class UserProfile : Entity<Guid>
 {
-    public Guid Id { get; }
     public Email Email { get; }
     public Username Username { get; }
     public FirstName? FirstName { get; private set; }
@@ -14,6 +14,7 @@ public class UserProfile : IEntity<Guid>
     public DataPublicityState DataPublicityState { get; private set; }
 
     public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName, PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPublicityState dataPublicityState)
+        : base(id)
     {
         Id = id;
         Email = email;
@@ -23,7 +24,7 @@ public class UserProfile : IEntity<Guid>
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
         DataPublicityState = dataPublicityState;
-    }   
+    }
 
     public void ChangeFirstName(FirstName? newFirstName)
     {
