@@ -7,7 +7,7 @@ public class InMemoryUserProfileRepository(IEnumerable<UserProfile> userProfiles
     : InMemoryRepository<UserProfile, Guid>(userProfiles), IUserProfileRepository
 {
     public InMemoryUserProfileRepository()
-        : this([])
+            : this([])
     {
 
     }

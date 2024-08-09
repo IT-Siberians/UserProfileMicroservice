@@ -28,20 +28,20 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     {
         for (int i = 0; i < EntityList.Count; i++)
             if (EntityList[i].Id.Equals(id))
-        {
+            {
                 EntityList.RemoveAt(i);
                 break;
             }
         return Task.CompletedTask;
     }
 
-        public Task<IEnumerable<TEntity>> GetAllAsync()
-        => Task.FromResult(EntityList.AsEnumerable());
+    public Task<IEnumerable<TEntity>> GetAllAsync()
+    => Task.FromResult(EntityList.AsEnumerable());
 
     public Task<TEntity?> GetByIdAsync(TId id)
         => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id)));
 
-        public Task UpdateAsync(TEntity entity)
+    public Task UpdateAsync(TEntity entity)
     {
         for (int i = 0; i < EntityList.Count; i++)
             if (EntityList[i].Id.Equals(entity.Id))
@@ -51,5 +51,4 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
             }
         return Task.CompletedTask;
     }
-
 }
