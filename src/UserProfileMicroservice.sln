@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repositories.Imp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{A417AA17-F91B-4860-B3E1-0856CAB250ED}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.EntityFramework", "DataAccess\DataAccess.EntityFramework\DataAccess.EntityFramework.csproj", "{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E44A7BA0-BC64-4211-AF42-F002054482A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +49,7 @@ Global
 		{4B9CD219-4101-4FE9-83E5-743C8351DFAA} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 		{61A29E6D-F558-4435-8B40-6E8AC7AE2972} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 		{E44A7BA0-BC64-4211-AF42-F002054482A8} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
+		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C64A63-378F-4217-A416-2BA61ABA45B7}

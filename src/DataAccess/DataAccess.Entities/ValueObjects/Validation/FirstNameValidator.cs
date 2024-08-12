@@ -6,20 +6,18 @@ namespace DataAccess.Entities.ValueObjects.Validation;
 
 internal class FirstNameValidator : IValidator<String>
 {
-    const int MAXIMUM_NAME_LENGTH = 30;
-    
     public void Validate(string value)
     {
         if (value == null)
             ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
             ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
-        if (value.Length > MAXIMUM_NAME_LENGTH)
+        if (value.Length > FirstName.MaximumValueLength)
             ThrowValidationException(ExceptionMessages.MAXIMUM_VALUE_EXCEEDED);
         if (!IsValidCharacterSet(value))
             ThrowValidationException(ExceptionMessages.INVALID_NAME_CHARACTER_SET);
-        if (!IsValidNameCapitalization(value)) 
-        ThrowValidationException(ExceptionMessages.INVALID_NAME_CAPITALIZATION);
+        if (!IsValidNameCapitalization(value))
+            ThrowValidationException(ExceptionMessages.INVALID_NAME_CAPITALIZATION);
     }
 
     private bool IsValidCharacterSet(string name)

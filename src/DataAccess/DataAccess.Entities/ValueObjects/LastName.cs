@@ -3,4 +3,8 @@ using DataAccess.Entities.ValueObjects.Validation;
 
 namespace DataAccess.Entities.ValueObjects;
 
-public class LastName(string lastName) : ValueObject<string>(new LastNameValidator(), lastName);
+public class LastName(string lastName) : ValueObject<string>(new LastNameValidator(), lastName)
+{
+    public const int MaximumValueLength = 30;
+}
+

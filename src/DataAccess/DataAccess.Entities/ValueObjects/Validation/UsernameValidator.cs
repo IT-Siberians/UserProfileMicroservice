@@ -6,7 +6,6 @@ namespace DataAccess.Entities.ValueObjects.Validation;
 
 internal class UsernameValidator : IValidator<String>
 {
-    public const int MAXIMUM_NAME_LENGTH = 30;
     public const int MINIMUM_NAME_LENGTH = 3;
 
     public void Validate(string value)
@@ -15,7 +14,7 @@ internal class UsernameValidator : IValidator<String>
             ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
             ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
-        if (value.Length > MAXIMUM_NAME_LENGTH)
+        if (value.Length > Username.MaximumValueLength)
             ThrowValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (CountAlphanumericCharacters(value) < MINIMUM_NAME_LENGTH)
             ThrowValidationException(ExceptionMessages.USERNAME_LENGTH_LESS_THAN_MINIMUM_VALUE);
@@ -33,7 +32,7 @@ internal class UsernameValidator : IValidator<String>
     private int CountAlphanumericCharacters(string name)
         => name.Where(ch => Char.IsLetterOrDigit(ch)).Count();
 
-    [DoesNotReturn]    
-        private void ThrowValidationException(string message)
+    [DoesNotReturn]
+    private void ThrowValidationException(string message)
         => throw new UsernameValidationException(message);
 }

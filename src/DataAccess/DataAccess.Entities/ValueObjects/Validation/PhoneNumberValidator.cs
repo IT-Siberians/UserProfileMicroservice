@@ -6,15 +6,13 @@ namespace DataAccess.Entities.ValueObjects.Validation;
 
 internal class PhoneNumberValidator : IValidator<String>
 {
-    const int MAXIMUM_PHONE_NUMBER_LENGTH = 14;
-
     public void Validate(string value)
     {
         if (value == null)
             ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
             ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
-        if (value.Length > MAXIMUM_PHONE_NUMBER_LENGTH)
+        if (value.Length > PhoneNumber.MaximumValueLength)
             ThrowValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (!IsValidPhoneNumberFormat(value))
             ThrowValidationException(ExceptionMessages.INVALID_PHONE_NUMBER_FORMAT);

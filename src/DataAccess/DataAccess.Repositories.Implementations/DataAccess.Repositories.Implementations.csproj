@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess.Entities\DataAccess.Entities.csproj" />
+    <ProjectReference Include="..\DataAccess.EntityFramework\DataAccess.EntityFramework.csproj" />
     <ProjectReference Include="..\DataAccess.Repositories.Abstractions\DataAccess.Repositories.Abstractions.csproj" />
   </ItemGroup>
 

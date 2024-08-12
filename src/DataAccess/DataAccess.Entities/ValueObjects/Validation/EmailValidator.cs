@@ -6,15 +6,13 @@ namespace DataAccess.Entities.ValueObjects.Validation;
 
 internal class EmailValidator : IValidator<String>
 {
-    const int MAXIMUM_EMAIL_LENGTH = 255;
-
     public void Validate(string value)
     {
         if (value == null)
             ThrowValidationException(ExceptionMessages.VALUE_IS_NULL);
         if (value == String.Empty)
             ThrowValidationException(ExceptionMessages.STRING_IS_EMPTY);
-        if (value.Length > MAXIMUM_EMAIL_LENGTH)
+        if (value.Length > Email.MaximumValueLength)
             throw new EmailValidationException(ExceptionMessages.MAXIMUM_STRING_LENGTH_EXCEEDED);
         if (!IsValidEmailAddressFormat(value))
             ThrowValidationException(ExceptionMessages.INVALID_EMAIL_FORMAT);
