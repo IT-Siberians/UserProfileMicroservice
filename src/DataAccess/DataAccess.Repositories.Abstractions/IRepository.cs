@@ -2,7 +2,7 @@
 
 namespace DataAccess.Repositories.Abstractions;
 
-public interface IRepository<TEntity, TId>
+public interface IRepository<TEntity, in TId>
     where TEntity : Entity<TId>
     where TId : struct, IEquatable<TId>
 {
