@@ -20,20 +20,25 @@ public class UserProfileConfiguration : IEntityTypeConfiguration<UserProfile>
             .HasConversion(username => username.Value, value => new Username(value))
             .IsRequired()
             .HasMaxLength(Username.MaximumValueLength);
+        builder.Property(x => x.FirstName)
+            .HasConversion(firstName => firstName.Value, value => new FirstName(value))
+            .IsRequired()
+            .HasMaxLength(LastName.MaximumValueLength);
         builder.Property(x => x.LastName)
-            .HasConversion(lastName => ConvertNullableValueObject(lastName), value => value == null ? null : new LastName(value))
+            .HasConversion(lastName => lastName.Value, value => new LastName(value))
+            .IsRequired()
             .HasMaxLength(LastName.MaximumValueLength);
         builder.Property(x => x.PhoneNumber)
-            .HasConversion(phoneNumber => ConvertNullableValueObject(phoneNumber), value => value == null ? null : new PhoneNumber(value))
+            .HasConversion(phoneNumber => ConvertToNullableValueObject(phoneNumber), value => value == null ? null : new PhoneNumber(value))
             .HasMaxLength(PhoneNumber.MaximumValueLength);
         builder.Property(x => x.PhotoUrl)
-            .HasConversion(photoUrl => ConvertNullableValueObject(photoUrl), value => value == null ? null : new PhotoUrl(value));
+            .HasConversion(photoUrl => ConvertToNullableValueObject(photoUrl), value => value == null ? null : new PhotoUrl(value));
         builder.Property(x => x.DataPublicityState)
             .HasConversion(dataPublicityState => dataPublicityState.Value, value => new DataPublicityState(value))
             .IsRequired();
     }
 
-    private T? ConvertNullableValueObject<T>(ValueObject<T>? valueObject)
+    private T? ConvertToNullableValueObject<T>(ValueObject<T>? valueObject)
     {
         if (valueObject is null)
             return default(T);

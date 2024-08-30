@@ -5,17 +5,14 @@ namespace DataAccess.Entities.ValueObjects.Base;
 
 public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
 {
-    private readonly IValidator<T> _validator;
     public readonly T Value;
 
     protected ValueObject(IValidator<T> validator, T value)
     {
-        _validator = validator;
-        if (_validator == null)
+        if (validator == null)
             throw new ValidatorNotSpecifiedException(this);
-        _validator.Validate(value);
-        ArgumentNullException.ThrowIfNull(value);
-        Value = value;
+        validator.Validate(value);
+        Value = value ?? throw new ArgumentNullException(nameof(value));
     }
 
     public override string ToString()
@@ -35,7 +32,7 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
     {
         if (ReferenceEquals(this, other))
             return true;
-        if (other == null)
+        if (other is null)
             return false;
         if (GetType() != other.GetType())
             return false;
@@ -43,16 +40,8 @@ public abstract class ValueObject<T> : IEquatable<ValueObject<T>>
     }
 
     public static bool operator ==(ValueObject<T>? left, ValueObject<T>? right)
-    {
-        if ((object?)left == null || (object?)right == null)
-            return Equals(left, right);
-        return left.Equals(right);
-    }
+        => left is null ? false : left.Equals(right);
 
     public static bool operator !=(ValueObject<T>? left, ValueObject<T>? right)
-    {
-        if ((object?)left == null || (object?)right == null)
-            return !Equals(left, right);
-        return !left.Equals(right);
-    }
+        => !(left == right);
 }
