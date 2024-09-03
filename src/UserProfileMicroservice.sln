@@ -3,21 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Entities", "DataAccess\DataAccess.Entities\DataAccess.Entities.csproj", "{4B9CD219-4101-4FE9-83E5-743C8351DFAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.DataAccess.Entities", "DataAccess\UserProfileMicroservice.DataAccess.Entities\UserProfileMicroservice.DataAccess.Entities.csproj", "{4B9CD219-4101-4FE9-83E5-743C8351DFAA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repositories.Abstractions", "DataAccess\DataAccess.Repositories.Abstractions\DataAccess.Repositories.Abstractions.csproj", "{61A29E6D-F558-4435-8B40-6E8AC7AE2972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.DataAccess.Repositories.Abstractions", "DataAccess\UserProfileMicroservice.DataAccess.Repositories.Abstractions\UserProfileMicroservice.DataAccess.Repositories.Abstractions.csproj", "{61A29E6D-F558-4435-8B40-6E8AC7AE2972}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4B9CD219-4101-4FE9-83E5-743C8351DFAA} = {4B9CD219-4101-4FE9-83E5-743C8351DFAA}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Repositories.Implementations", "DataAccess\DataAccess.Repositories.Implementations\DataAccess.Repositories.Implementations.csproj", "{E44A7BA0-BC64-4211-AF42-F002054482A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.DataAccess.Repositories.Implementations", "DataAccess\UserProfileMicroservice.DataAccess.Repositories.Implementations\UserProfileMicroservice.DataAccess.Repositories.Implementations.csproj", "{E44A7BA0-BC64-4211-AF42-F002054482A8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{61A29E6D-F558-4435-8B40-6E8AC7AE2972} = {61A29E6D-F558-4435-8B40-6E8AC7AE2972}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataAccess", "DataAccess", "{A417AA17-F91B-4860-B3E1-0856CAB250ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.EntityFramework", "DataAccess\DataAccess.EntityFramework\DataAccess.EntityFramework.csproj", "{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.DataAccess.EntityFramework", "DataAccess\UserProfileMicroservice.DataAccess.EntityFramework\UserProfileMicroservice.DataAccess.EntityFramework.csproj", "{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.Common", "Common\UserProfileMicroservice.Common\UserProfileMicroservice.Common.csproj", "{796BBD5E-5A1C-4DBE-91C8-093540C81678}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B5921A4A-71F1-45AC-A547-CABFEEA60BBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserProfileMicroservice.DataAccess.ValueObjects", "DataAccess\UserProfileMicroservice.DataAccess.ValueObjects\UserProfileMicroservice.DataAccess.ValueObjects.csproj", "{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,14 @@ Global
 		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{796BBD5E-5A1C-4DBE-91C8-093540C81678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796BBD5E-5A1C-4DBE-91C8-093540C81678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796BBD5E-5A1C-4DBE-91C8-093540C81678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796BBD5E-5A1C-4DBE-91C8-093540C81678}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +64,8 @@ Global
 		{61A29E6D-F558-4435-8B40-6E8AC7AE2972} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 		{E44A7BA0-BC64-4211-AF42-F002054482A8} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 		{9DE2DEA6-FAFD-4F84-A065-3FA6CD81852F} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
+		{796BBD5E-5A1C-4DBE-91C8-093540C81678} = {B5921A4A-71F1-45AC-A547-CABFEEA60BBC}
+		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C64A63-378F-4217-A416-2BA61ABA45B7}
