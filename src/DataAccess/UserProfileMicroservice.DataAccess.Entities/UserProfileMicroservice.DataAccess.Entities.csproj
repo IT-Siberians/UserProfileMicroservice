@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\UserProfileMicroservice.Common\UserProfileMicroservice.Common.csproj" />
+    <ProjectReference Include="..\UserProfileMicroservice.DataAccess.ValueObjects\UserProfileMicroservice.DataAccess.ValueObjects.csproj" />
+  </ItemGroup>
+
+</Project>
