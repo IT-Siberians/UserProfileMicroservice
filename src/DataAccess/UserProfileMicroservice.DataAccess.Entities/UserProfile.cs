@@ -15,7 +15,7 @@ public class UserProfile : Entity<Guid>
     public DataPrivacyControlFlags DataPrivacyState { get; private set; }
 
     public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName,
-        PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPrivacyControlFlags dataPrivacyState)
+        PhoneNumber? phoneNumber, PhotoUrl? photoUrl, DataPrivacyControlFlags dataPrivacyState)
         : base(id)
     {
         Id = id;
@@ -26,6 +26,12 @@ public class UserProfile : Entity<Guid>
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
         DataPrivacyState = dataPrivacyState;
+    }
+
+    public UserProfile(Guid id, string email, string username, string firstName, string lastName,
+        string? phoneNumber, string? photoUrl, DataPrivacyControlFlags dataPrivacyState)
+        : this(id, new Email(email), new Username(username), new FirstName(firstName), new LastName(lastName), phoneNumber is null ? null : new PhoneNumber(phoneNumber), photoUrl is null ? null : new PhotoUrl(photoUrl), dataPrivacyState)
+    {
     }
 
     public void ChangeFirstName(FirstName newFirstName)

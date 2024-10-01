@@ -31,6 +31,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.Bus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.BusinessLogic.Services.Abstractions", "BusinessLogic\UserProfileMicroservice.BusinessLogic.Services.Abstractions\UserProfileMicroservice.BusinessLogic.Services.Abstractions.csproj", "{B6952060-AA13-4528-BCA2-5BA3920F5E9E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.BusinessLogic.Services.Implementations", "BusinessLogic\UserProfileMicroservice.BusinessLogic.Services.Implementations\UserProfileMicroservice.BusinessLogic.Services.Implementations.csproj", "{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{B6952060-AA13-4528-BCA2-5BA3920F5E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6952060-AA13-4528-BCA2-5BA3920F5E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6952060-AA13-4528-BCA2-5BA3920F5E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{B21FFDF5-50B0-4DEB-8DC0-D2EFA8D988C2} = {A417AA17-F91B-4860-B3E1-0856CAB250ED}
 		{626CBED9-AC1C-4FBC-A6A4-4711FDD8A170} = {CDF96526-A857-4599-8F17-362F7798179E}
 		{B6952060-AA13-4528-BCA2-5BA3920F5E9E} = {CDF96526-A857-4599-8F17-362F7798179E}
+		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE} = {CDF96526-A857-4599-8F17-362F7798179E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C64A63-378F-4217-A416-2BA61ABA45B7}

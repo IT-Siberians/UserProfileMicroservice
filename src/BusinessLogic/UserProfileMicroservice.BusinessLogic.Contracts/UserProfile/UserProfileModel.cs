@@ -6,9 +6,9 @@ public record UserProfileModel(
     string Username,
     string FirstName,
     string LastName,
-    string PhoneNumber,
-    string PhotoUrl,
+    string? PhoneNumber,
+    string? PhotoUrl,
+    bool IsEmailPublished,
     bool IsFirstNamePublished,
     bool IsLastNamePublished,
-    bool IsPhoneNumberPublished,
-    bool IsPhotoUrlPublished);
+    bool IsPhoneNumberPublished);
