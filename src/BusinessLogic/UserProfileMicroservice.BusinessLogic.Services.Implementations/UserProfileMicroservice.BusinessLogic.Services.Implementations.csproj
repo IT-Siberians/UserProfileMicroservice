@@ -10,6 +10,7 @@
     <ProjectReference Include="..\..\Common\UserProfileMicroservice.Common\UserProfileMicroservice.Common.csproj" />
     <ProjectReference Include="..\..\DataAccess\UserProfileMicroservice.DataAccess.Entities\UserProfileMicroservice.DataAccess.Entities.csproj" />
     <ProjectReference Include="..\..\DataAccess\UserProfileMicroservice.DataAccess.Repositories.Abstractions\UserProfileMicroservice.DataAccess.Repositories.Abstractions.csproj" />
+    <ProjectReference Include="..\..\DataAccess\UserProfileMicroservice.DataAccess.ValueObjects\UserProfileMicroservice.DataAccess.ValueObjects.csproj" />
     <ProjectReference Include="..\UserProfileMicroservice.BusinessLogic.Contracts\UserProfileMicroservice.BusinessLogic.Contracts.csproj" />
     <ProjectReference Include="..\UserProfileMicroservice.BusinessLogic.Services.Abstractions\UserProfileMicroservice.BusinessLogic.Services.Abstractions.csproj" />
   </ItemGroup>

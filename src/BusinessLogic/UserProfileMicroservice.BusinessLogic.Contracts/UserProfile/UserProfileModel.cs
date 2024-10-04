@@ -1,4 +1,5 @@
 ﻿namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
+using UserProfileMicroservice.Common.Enumerations;
 
 public record UserProfileModel(
     Guid Id,
@@ -8,7 +9,17 @@ public record UserProfileModel(
     string LastName,
     string? PhoneNumber,
     string? PhotoUrl,
-    bool IsEmailPublished,
-    bool IsFirstNamePublished,
-    bool IsLastNamePublished,
-    bool IsPhoneNumberPublished);
+    DataPrivacyControlFlags DataPrivacyState)
+{
+    public bool IsEmailPublished
+        => DataPrivacyState.HasFlag(DataPrivacyControlFlags.Email);
+
+    public bool IsFirstNamePublished
+        => DataPrivacyState.HasFlag(DataPrivacyControlFlags.FirstName);
+
+    public bool IsLastNamePublished
+        => DataPrivacyState.HasFlag(DataPrivacyControlFlags.LastName);
+
+    public bool IsPhoneNumberPublished
+        => DataPrivacyState.HasFlag(DataPrivacyControlFlags.PhoneNumber);
+}

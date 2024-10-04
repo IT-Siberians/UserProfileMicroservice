@@ -17,12 +17,10 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
     }
 
     public async Task DeleteAsync(Guid id)
-    {
-        await userProfileRepository.DeleteAsync(id);
-    }
+        => await userProfileRepository.DeleteAsync(id);
 
     public async Task<IEnumerable<UserProfileModel>> GetAllAsync()
-=> (await userProfileRepository.GetAllAsync()).Select(x => x.MapToModel());
+        => (await userProfileRepository.GetAllAsync()).Select(x => x.MapToModel());
 
     public async Task<UserProfileModel?> GetByIdAsync(Guid id)
     {

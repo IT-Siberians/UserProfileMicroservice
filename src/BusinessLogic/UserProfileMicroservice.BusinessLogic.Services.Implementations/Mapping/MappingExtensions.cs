@@ -1,6 +1,7 @@
 ﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 using UserProfileMicroservice.Common.Enumerations;
 using UserProfileMicroservice.DataAccess.Entities;
+using UserProfileMicroservice.DataAccess.ValueObjects;
 
 namespace UserProfileMicroservice.BusinessLogic.Services.Implementations.Mapping;
 
@@ -23,10 +24,7 @@ internal static class MappingExtensions
             profile.LastName.Value,
             profile.PhoneNumber?.Value,
             profile.PhotoUrl?.Value,
-            isEmailPublished,
-            isFirstNamePublished,
-            isLastNamePublished,
-            isPhoneNumberPublished);
+            profile.DataPrivacyState);
     }
 
     public static UserProfile MapToEntity(this UserProfileModel profileModel)
@@ -34,24 +32,15 @@ internal static class MappingExtensions
         if (profileModel is null)
             throw new ArgumentNullException(nameof(profileModel));
 
-        var dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy;
-        if (profileModel.IsEmailPublished)
-            dataPrivacyState |= DataPrivacyControlFlags.Email;
-        if (profileModel.IsFirstNamePublished)
-            dataPrivacyState |= DataPrivacyControlFlags.FirstName;
-        if (profileModel.IsLastNamePublished)
-            dataPrivacyState |= DataPrivacyControlFlags.LastName;
-        if (profileModel.IsPhoneNumberPublished)
-            dataPrivacyState |= DataPrivacyControlFlags.PhoneNumber;
         return new UserProfile(
             profileModel.Id,
-            profileModel.Email,
-            profileModel.Username,
-            profileModel.FirstName,
-            profileModel.LastName,
-            profileModel.PhoneNumber,
-            profileModel.PhotoUrl,
-            dataPrivacyState);
+            new Email(profileModel.Email),
+            new Username(profileModel.Username),
+            new FirstName(profileModel.FirstName),
+            new LastName(profileModel.LastName),
+            profileModel.PhoneNumber is null ? null : new PhoneNumber(profileModel.PhoneNumber),
+            profileModel.PhotoUrl is null ? null : new PhotoUrl(profileModel.PhotoUrl),
+            profileModel.DataPrivacyState);
     }
 
     public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)
@@ -60,13 +49,13 @@ internal static class MappingExtensions
             throw new ArgumentNullException(nameof(profileModel));
 
         return new UserProfile(
-profileModel.Id,
-profileModel.Email,
-profileModel.Username,
-profileModel.FirstName,
-profileModel.LastName,
-null,
-null,
-DataPrivacyControlFlags.CompletePrivacy);
+            profileModel.Id,
+            new Email(profileModel.Email),
+            new Username(profileModel.Username),
+            new FirstName(profileModel.FirstName),
+            new LastName(profileModel.LastName),
+            null,
+            null,
+            DataPrivacyControlFlags.CompletePrivacy);
     }
 }

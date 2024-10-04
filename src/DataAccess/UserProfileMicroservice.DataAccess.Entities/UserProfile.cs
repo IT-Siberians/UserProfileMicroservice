@@ -28,36 +28,18 @@ public class UserProfile : Entity<Guid>
         DataPrivacyState = dataPrivacyState;
     }
 
-    public UserProfile(Guid id, string email, string username, string firstName, string lastName,
-        string? phoneNumber, string? photoUrl, DataPrivacyControlFlags dataPrivacyState)
-        : this(id, new Email(email), new Username(username), new FirstName(firstName), new LastName(lastName),
-        phoneNumber is null ? null : new PhoneNumber(phoneNumber), photoUrl is null ? null : new PhotoUrl(photoUrl), dataPrivacyState)
-    {
-    }
-
     public void ChangeFirstName(FirstName newFirstName)
-    {
-        FirstName = newFirstName ?? throw new ArgumentNullException(nameof(newFirstName));
-    }
+        => FirstName = newFirstName ?? throw new ArgumentNullException(nameof(newFirstName));
 
     public void ChangeLastname(LastName newLastName)
-    {
-        LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
-    }
+        => LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
 
     public void ChangePhoneNumber(PhoneNumber? newPhoneNumber)
-    {
-        PhoneNumber = newPhoneNumber;
-    }
+        => PhoneNumber = newPhoneNumber;
 
     public void ChangePhotoUrl(PhotoUrl? newPhotoUrl)
-    {
-        PhotoUrl = newPhotoUrl;
-    }
+        => PhotoUrl = newPhotoUrl;
 
     public void ChangeDataPrivacyState(DataPrivacyControlFlags newDataPrivacyState)
-    {
-        DataPrivacyState = newDataPrivacyState;
-
-    }
+        => DataPrivacyState = newDataPrivacyState;
 }
