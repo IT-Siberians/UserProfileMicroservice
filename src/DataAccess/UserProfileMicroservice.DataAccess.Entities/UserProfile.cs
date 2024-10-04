@@ -30,7 +30,8 @@ public class UserProfile : Entity<Guid>
 
     public UserProfile(Guid id, string email, string username, string firstName, string lastName,
         string? phoneNumber, string? photoUrl, DataPrivacyControlFlags dataPrivacyState)
-        : this(id, new Email(email), new Username(username), new FirstName(firstName), new LastName(lastName), phoneNumber is null ? null : new PhoneNumber(phoneNumber), photoUrl is null ? null : new PhotoUrl(photoUrl), dataPrivacyState)
+        : this(id, new Email(email), new Username(username), new FirstName(firstName), new LastName(lastName),
+        phoneNumber is null ? null : new PhoneNumber(phoneNumber), photoUrl is null ? null : new PhotoUrl(photoUrl), dataPrivacyState)
     {
     }
 

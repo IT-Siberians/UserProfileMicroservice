@@ -9,6 +9,8 @@ public class EFRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
     where TEntity : Entity<TId>
     where TId : struct, IEquatable<TId>
 {
+    protected ApplicationDbContext Context => context;
+
     public async Task<TEntity> AddAsync(TEntity entity)
     {
         context.Add(entity);

@@ -1,13 +1,19 @@
 ﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 using UserProfileMicroservice.BusinessLogic.Services.Abstractions;
+using UserProfileMicroservice.BusinessLogic.Services.Implementations.Mapping;
+using UserProfileMicroservice.DataAccess.Repositories.Abstractions;
 
 namespace UserProfileMicroservice.BusinessLogic.Services.Implementations;
 
-public class UserProfileService : IUserProfileService
+public class UserProfileService(IUserProfileRepository userProfileRepository) : IUserProfileService
 {
-    public Task<UserProfileModel?> CreateUserProfileAsync(CreateUserProfileModel UserProfile)
+    public async Task<UserProfileModel?> CreateUserProfileAsync(CreateUserProfileModel createProfileModel)
     {
-        throw new NotImplementedException();
+        var createProfile = createProfileModel.MapToEntity();
+        if (!await userProfileRepository.CanCreateUserProfileAsync(createProfile))
+            return null;
+        await userProfileRepository.AddAsync(createProfile);
+        return createProfile.MapToModel();
     }
 
     public Task DeleteUserProfileAsync(Guid id)

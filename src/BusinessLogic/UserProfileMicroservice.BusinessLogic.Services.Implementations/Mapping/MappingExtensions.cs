@@ -47,4 +47,17 @@ internal static class MappingExtensions
             profileModel.PhotoUrl,
             dataPrivacyState);
     }
+
+    public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)
+    {
+        return new UserProfile(
+            profileModel.Id,
+            profileModel.Email,
+            profileModel.Username,
+            profileModel.FirstName,
+            profileModel.LastName,
+            null,
+            null,
+            DataPrivacyControlFlags.CompletePrivacy);
+    }
 }
