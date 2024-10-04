@@ -4,10 +4,10 @@ namespace UserProfileMicroservice.BusinessLogic.Services.Abstractions;
 
 public interface IUserProfileService
 {
-    Task<IEnumerable<UserProfileModel>> GetAllUserProfilesAsync();
-    Task<UserProfileModel?> GetUserProfileByIdAsync(Guid id);
-    Task<UserProfileModel?> GetUserProfileByUsernameAsync(string name);
-    Task<UserProfileModel?> CreateUserProfileAsync(CreateUserProfileModel UserProfile);
-    Task UpdateUserProfileAsync(UserProfileModel userProfile);
-    Task DeleteUserProfileAsync(Guid id);
+    Task<IEnumerable<UserProfileModel>> GetAllAsync();
+    Task<UserProfileModel?> GetByIdAsync(Guid id);
+    Task<UserProfileModel?> GetByUsernameAsync(string name);
+    Task<UserProfileModel?> CreateAsync(CreateUserProfileModel UserProfile);
+    Task UpdateAsync(UserProfileModel userProfile);
+    Task DeleteAsync(Guid id);
 }

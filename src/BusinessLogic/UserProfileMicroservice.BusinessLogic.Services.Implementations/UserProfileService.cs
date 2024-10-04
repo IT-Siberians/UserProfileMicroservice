@@ -7,37 +7,42 @@ namespace UserProfileMicroservice.BusinessLogic.Services.Implementations;
 
 public class UserProfileService(IUserProfileRepository userProfileRepository) : IUserProfileService
 {
-    public async Task<UserProfileModel?> CreateUserProfileAsync(CreateUserProfileModel createProfileModel)
+    public async Task<UserProfileModel?> CreateAsync(CreateUserProfileModel createProfileModel)
     {
         var createProfile = createProfileModel.MapToEntity();
-        if (!await userProfileRepository.CanCreateUserProfileAsync(createProfile))
+        if (!await userProfileRepository.CanCreateAsync(createProfile))
             return null;
         await userProfileRepository.AddAsync(createProfile);
         return createProfile.MapToModel();
     }
 
-    public Task DeleteUserProfileAsync(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        await userProfileRepository.DeleteAsync(id);
     }
 
-    public Task<IEnumerable<UserProfileModel>> GetAllUserProfilesAsync()
+    public async Task<IEnumerable<UserProfileModel>> GetAllAsync()
+=> (await userProfileRepository.GetAllAsync()).Select(x => x.MapToModel());
+
+    public async Task<UserProfileModel?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var profile = await userProfileRepository.GetByIdAsync(id);
+        return profile is null ? null : profile.MapToModel();
     }
 
-    public Task<UserProfileModel?> GetUserProfileByIdAsync(Guid id)
+    public async Task<UserProfileModel?> GetByUsernameAsync(string username)
     {
-        throw new NotImplementedException();
+        var profile = await userProfileRepository.GetByUsernameAsync(username);
+        return profile is null ? null : profile.MapToModel();
     }
 
-    public Task<UserProfileModel?> GetUserProfileByUsernameAsync(string name)
+    public async Task UpdateAsync(UserProfileModel profileModel)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateUserProfileAsync(UserProfileModel userProfile)
-    {
-        throw new NotImplementedException();
+        if (profileModel is null)
+            return;
+        var profile = await userProfileRepository.GetByIdAsync(profileModel.Id);
+        if (profile is null)
+            return;
+        await userProfileRepository.UpdateAsync(profileModel.MapToEntity());
     }
 }

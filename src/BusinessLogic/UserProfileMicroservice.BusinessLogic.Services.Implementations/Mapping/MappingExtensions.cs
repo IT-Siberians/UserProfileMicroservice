@@ -8,6 +8,9 @@ internal static class MappingExtensions
 {
     public static UserProfileModel MapToModel(this UserProfile profile)
     {
+        if (profile is null)
+            throw new ArgumentNullException(nameof(profile));
+
         bool isEmailPublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.Email);
         bool isFirstNamePublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.FirstName);
         bool isLastNamePublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.LastName);
@@ -28,6 +31,9 @@ internal static class MappingExtensions
 
     public static UserProfile MapToEntity(this UserProfileModel profileModel)
     {
+        if (profileModel is null)
+            throw new ArgumentNullException(nameof(profileModel));
+
         var dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy;
         if (profileModel.IsEmailPublished)
             dataPrivacyState |= DataPrivacyControlFlags.Email;
@@ -50,14 +56,17 @@ internal static class MappingExtensions
 
     public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)
     {
+        if (profileModel is null)
+            throw new ArgumentNullException(nameof(profileModel));
+
         return new UserProfile(
-            profileModel.Id,
-            profileModel.Email,
-            profileModel.Username,
-            profileModel.FirstName,
-            profileModel.LastName,
-            null,
-            null,
-            DataPrivacyControlFlags.CompletePrivacy);
+profileModel.Id,
+profileModel.Email,
+profileModel.Username,
+profileModel.FirstName,
+profileModel.LastName,
+null,
+null,
+DataPrivacyControlFlags.CompletePrivacy);
     }
 }
