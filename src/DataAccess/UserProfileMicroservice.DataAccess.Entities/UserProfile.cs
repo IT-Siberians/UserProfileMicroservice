@@ -15,7 +15,7 @@ public class UserProfile : Entity<Guid>
     public DataPrivacyControlFlags DataPrivacyState { get; private set; }
 
     public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName,
-        PhoneNumber? phoneNumber, PhotoUrl? photoUrl, DataPrivacyControlFlags dataPrivacyState)
+        PhoneNumber? phoneNumber = null, PhotoUrl? photoUrl = null, DataPrivacyControlFlags dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy)
         : base(id)
     {
         Id = id;

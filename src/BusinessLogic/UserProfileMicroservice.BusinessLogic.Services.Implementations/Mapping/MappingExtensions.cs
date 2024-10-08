@@ -12,10 +12,6 @@ internal static class MappingExtensions
         if (profile is null)
             throw new ArgumentNullException(nameof(profile));
 
-        bool isEmailPublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.Email);
-        bool isFirstNamePublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.FirstName);
-        bool isLastNamePublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.LastName);
-        bool isPhoneNumberPublished = profile.DataPrivacyState.HasFlag(DataPrivacyControlFlags.PhoneNumber);
         return new UserProfileModel(
             profile.Id,
             profile.Email.Value,
@@ -32,15 +28,19 @@ internal static class MappingExtensions
         if (profileModel is null)
             throw new ArgumentNullException(nameof(profileModel));
 
-        return new UserProfile(
+        var profile = new UserProfile(
             profileModel.Id,
             new Email(profileModel.Email),
             new Username(profileModel.Username),
             new FirstName(profileModel.FirstName),
-            new LastName(profileModel.LastName),
-            profileModel.PhoneNumber is null ? null : new PhoneNumber(profileModel.PhoneNumber),
-            profileModel.PhotoUrl is null ? null : new PhotoUrl(profileModel.PhotoUrl),
-            profileModel.DataPrivacyState);
+            new LastName(profileModel.LastName));
+        if (profileModel.PhoneNumber is not null)
+            profile.ChangePhoneNumber(new PhoneNumber(profileModel.PhoneNumber));
+        if (profileModel.PhotoUrl is not null)
+            profile.ChangePhotoUrl(new PhotoUrl(profileModel.PhotoUrl));
+        profile.ChangeDataPrivacyState(profileModel.DataPrivacyState);
+        return profile;
+
     }
 
     public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)
@@ -53,9 +53,6 @@ internal static class MappingExtensions
             new Email(profileModel.Email),
             new Username(profileModel.Username),
             new FirstName(profileModel.FirstName),
-            new LastName(profileModel.LastName),
-            null,
-            null,
-            DataPrivacyControlFlags.CompletePrivacy);
+            new LastName(profileModel.LastName));
     }
 }
