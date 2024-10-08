@@ -21,29 +21,30 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     }
 
     public Task<bool> DeleteAsync(TEntity entity)
-        => Task.FromResult(EntityList.Remove(entity));
+        => DeleteAsync(entity.Id);
 
     public async Task<bool> DeleteAsync(TId id)
     {
         var entity = await GetByIdAsync(id);
         if (entity is null)
             return false;
-        return await DeleteAsync(entity);
+        entity.SoftDeleted = true;
+        return entity.SoftDeleted;
     }
 
     public Task<IEnumerable<TEntity>> GetAllAsync()
-        => Task.FromResult(EntityList.AsEnumerable());
+        => Task.FromResult(EntityList.Where(x => !x.SoftDeleted).AsEnumerable());
 
     public Task<TEntity?> GetByIdAsync(TId id)
-        => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id)));
+        => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id) && !x.SoftDeleted));
 
-    public Task<bool> UpdateAsync(TEntity entity)
+    public async Task<bool> UpdateAsync(TEntity entity)
     {
-        var entityToUpdate = EntityList.FirstOrDefault(x => x.Id.Equals(entity.Id));
+        var entityToUpdate = await GetByIdAsync(entity.Id);
         if (entityToUpdate is null)
-            return Task.FromResult(false);
+            return false;
         var index = EntityList.IndexOf(entityToUpdate);
         EntityList[index] = entity;
-        return Task.FromResult(true);
+        return true;
     }
 }
