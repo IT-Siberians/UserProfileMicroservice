@@ -20,18 +20,15 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
         return Task.FromResult(entity);
     }
 
-    public Task DeleteAsync(TEntity entity)
-    {
-        EntityList.Remove(entity);
-        return Task.CompletedTask;
-    }
+    public Task<bool> DeleteAsync(TEntity entity)
+        => Task.FromResult(EntityList.Remove(entity));
 
-    public async Task DeleteAsync(TId id)
+    public async Task<bool> DeleteAsync(TId id)
     {
         var entity = await GetByIdAsync(id);
         if (entity is null)
-            return;
-        await DeleteAsync(entity);
+            return false;
+        return await DeleteAsync(entity);
     }
 
     public Task<IEnumerable<TEntity>> GetAllAsync()
@@ -40,13 +37,13 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     public Task<TEntity?> GetByIdAsync(TId id)
         => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id)));
 
-    public Task UpdateAsync(TEntity entity)
+    public Task<bool> UpdateAsync(TEntity entity)
     {
         var entityToUpdate = EntityList.FirstOrDefault(x => x.Id.Equals(entity.Id));
         if (entityToUpdate is null)
-            return Task.CompletedTask;
+            return Task.FromResult(false);
         var index = EntityList.IndexOf(entityToUpdate);
         EntityList[index] = entity;
-        return Task.CompletedTask;
+        return Task.FromResult(true);
     }
 }

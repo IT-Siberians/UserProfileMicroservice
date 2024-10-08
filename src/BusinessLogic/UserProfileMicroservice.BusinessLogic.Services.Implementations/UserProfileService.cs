@@ -16,7 +16,7 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
         return createProfile.MapToModel();
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<bool> DeleteAsync(Guid id)
         => await userProfileRepository.DeleteAsync(id);
 
     public async Task<IEnumerable<UserProfileModel>> GetAllAsync()
@@ -34,13 +34,13 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
         return profile is null ? null : profile.MapToModel();
     }
 
-    public async Task UpdateAsync(UserProfileModel profileModel)
+    public async Task<bool> UpdateAsync(UserProfileModel profileModel)
     {
         if (profileModel is null)
-            return;
+            return false;
         var profile = await userProfileRepository.GetByIdAsync(profileModel.Id);
         if (profile is null)
-            return;
-        await userProfileRepository.UpdateAsync(profileModel.MapToEntity());
+            return false;
+        return await userProfileRepository.UpdateAsync(profileModel.MapToEntity());
     }
 }

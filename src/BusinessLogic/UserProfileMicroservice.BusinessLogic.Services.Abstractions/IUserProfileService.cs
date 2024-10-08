@@ -6,8 +6,8 @@ public interface IUserProfileService
 {
     Task<IEnumerable<UserProfileModel>> GetAllAsync();
     Task<UserProfileModel?> GetByIdAsync(Guid id);
-    Task<UserProfileModel?> GetByUsernameAsync(string name);
-    Task<UserProfileModel?> CreateAsync(CreateUserProfileModel UserProfile);
-    Task UpdateAsync(UserProfileModel userProfile);
-    Task DeleteAsync(Guid id);
+    Task<UserProfileModel?> GetByUsernameAsync(string username);
+    Task<UserProfileModel?> CreateAsync(CreateUserProfileModel profileModel);
+    Task<bool> UpdateAsync(UserProfileModel profileModel);
+    Task<bool> DeleteAsync(Guid id);
 }

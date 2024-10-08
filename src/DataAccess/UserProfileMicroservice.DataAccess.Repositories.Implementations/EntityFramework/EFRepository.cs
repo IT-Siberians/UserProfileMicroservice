@@ -18,29 +18,31 @@ public class EFRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
         return entity;
     }
 
-    public Task DeleteAsync(TEntity entity)
+    public async Task<bool> DeleteAsync(TEntity entity)
     {
         context.Remove(entity);
-        return context.SaveChangesAsync();
+        await context.SaveChangesAsync();
+        return true;
     }
 
-    public async Task DeleteAsync(TId id)
+    public async Task<bool> DeleteAsync(TId id)
     {
         var entity = await GetByIdAsync(id);
         if (entity is null)
-            return;
-        await DeleteAsync(entity);
+            return false;
+        return await DeleteAsync(entity);
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync()
-        => (await context.Set<TEntity>().ToListAsync()).AsEnumerable();
+        => (await context.Set<TEntity>().AsNoTracking().ToListAsync()).AsEnumerable();
 
     public virtual async Task<TEntity?> GetByIdAsync(TId id)
         => await context.Set<TEntity>().FindAsync(id);
 
-    public Task UpdateAsync(TEntity entity)
+    public async Task<bool> UpdateAsync(TEntity entity)
     {
         context.Update(entity);
-        return context.SaveChangesAsync();
+        await context.SaveChangesAsync();
+        return true;
     }
 }
