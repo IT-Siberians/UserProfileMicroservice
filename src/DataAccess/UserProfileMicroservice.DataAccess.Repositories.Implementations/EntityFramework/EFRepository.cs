@@ -25,7 +25,7 @@ public class EFRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
         var entity = await GetByIdAsync(id);
         if (entity is null)
             return false;
-        entity.SoftDeleted = true;
+        entity.Delete();
         await Context.SaveChangesAsync();
         return entity.SoftDeleted;
     }

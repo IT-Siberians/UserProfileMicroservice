@@ -4,7 +4,10 @@ public abstract class Entity<TId>(TId id) : IEquatable<Entity<TId>>
     where TId : struct, IEquatable<TId>
 {
     public TId Id { get; protected set; } = id;
-    public bool SoftDeleted { get; set; }
+    public bool SoftDeleted { get; protected set; }
+
+    public void Delete()
+        => SoftDeleted = true;
 
     public override bool Equals(object? obj)
         => obj is Entity<TId> other && Id.Equals(other.Id);

@@ -33,14 +33,12 @@ internal static class MappingExtensions
             new Email(profileModel.Email),
             new Username(profileModel.Username),
             new FirstName(profileModel.FirstName),
-            new LastName(profileModel.LastName));
-        if (profileModel.PhoneNumber is not null)
-            profile.ChangePhoneNumber(new PhoneNumber(profileModel.PhoneNumber));
-        if (profileModel.PhotoUrl is not null)
-            profile.ChangePhotoUrl(new PhotoUrl(profileModel.PhotoUrl));
-        profile.ChangeDataPrivacyState(profileModel.DataPrivacyState);
-        return profile;
+            new LastName(profileModel.LastName),
+            profileModel.DataPrivacyState);
+        profile.AddPhoneNumber(profileModel.PhoneNumber);
+        profile.AddPhotoUrl(profileModel.PhotoUrl);
 
+        return profile;
     }
 
     public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)

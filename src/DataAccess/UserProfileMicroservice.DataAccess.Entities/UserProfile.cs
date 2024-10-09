@@ -14,8 +14,10 @@ public class UserProfile : Entity<Guid>
     public PhotoUrl? PhotoUrl { get; private set; }
     public DataPrivacyControlFlags DataPrivacyState { get; private set; }
 
-    public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName,
-        PhoneNumber? phoneNumber = null, PhotoUrl? photoUrl = null, DataPrivacyControlFlags dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy)
+    public UserProfile(Guid id, Email email, Username username,
+        FirstName firstName, LastName lastName,
+        DataPrivacyControlFlags dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy,
+        PhoneNumber? phoneNumber = null, PhotoUrl? photoUrl = null)
         : base(id)
     {
         Id = id;
@@ -23,9 +25,9 @@ public class UserProfile : Entity<Guid>
         Username = username ?? throw new ArgumentNullException(nameof(username));
         FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
         LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+        DataPrivacyState = dataPrivacyState;
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
-        DataPrivacyState = dataPrivacyState;
     }
 
     public void ChangeFirstName(FirstName newFirstName)
@@ -34,8 +36,20 @@ public class UserProfile : Entity<Guid>
     public void ChangeLastname(LastName newLastName)
         => LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
 
+    public void AddPhoneNumber(string? phoneNumberValue)
+    {
+        if (PhoneNumber is null && phoneNumberValue is not null)
+            ChangePhoneNumber(new PhoneNumber(phoneNumberValue));
+    }
+
     public void ChangePhoneNumber(PhoneNumber? newPhoneNumber)
         => PhoneNumber = newPhoneNumber;
+
+    public void AddPhotoUrl(string? photoUrlValue)
+    {
+        if (PhotoUrl is null && photoUrlValue is not null)
+            ChangePhotoUrl(new PhotoUrl(photoUrlValue));
+    }
 
     public void ChangePhotoUrl(PhotoUrl? newPhotoUrl)
         => PhotoUrl = newPhotoUrl;
