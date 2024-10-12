@@ -1,4 +1,6 @@
-﻿namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
+﻿using UserProfileMicroservice.Common.Enumerations;
+
+namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 
 public record UserProfileModel(
     Guid Id,
@@ -6,9 +8,6 @@ public record UserProfileModel(
     string Username,
     string FirstName,
     string LastName,
-    string PhoneNumber,
-    string PhotoUrl,
-    bool IsFirstNamePublished,
-    bool IsLastNamePublished,
-    bool IsPhoneNumberPublished,
-    bool IsPhotoUrlPublished);
+    string? PhoneNumber,
+    string? PhotoUrl,
+    DataPrivacyControlFlags DataPrivacyState);
