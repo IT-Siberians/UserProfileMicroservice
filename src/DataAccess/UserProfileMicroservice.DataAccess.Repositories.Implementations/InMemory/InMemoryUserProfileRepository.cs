@@ -16,6 +16,6 @@ public class InMemoryUserProfileRepository(IEnumerable<UserProfile> userProfiles
 
     public async Task<bool> CanCreateAsync(UserProfile profile)
         => await GetByIdAsync(profile.Id) is null
-        && EntityList.FirstOrDefault(x => x.Email == profile.Email) is null
+        && !EntityList.Any(x => x.Email == profile.Email)
         && await GetByUsernameAsync(profile.Username.Value) is null;
 }

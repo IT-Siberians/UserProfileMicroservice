@@ -25,13 +25,13 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
     public async Task<UserProfileModel?> GetByIdAsync(Guid id)
     {
         var profile = await userProfileRepository.GetByIdAsync(id);
-        return profile is null ? null : profile.MapToModel();
+        return profile?.MapToModel();
     }
 
     public async Task<UserProfileModel?> GetByUsernameAsync(string username)
     {
         var profile = await userProfileRepository.GetByUsernameAsync(username);
-        return profile is null ? null : profile.MapToModel();
+        return profile?.MapToModel();
     }
 
     public async Task<bool> UpdateAsync(UserProfileModel profileModel)
