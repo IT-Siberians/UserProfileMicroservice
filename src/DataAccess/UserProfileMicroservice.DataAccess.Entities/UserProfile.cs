@@ -14,8 +14,10 @@ public class UserProfile : Entity<Guid>
     public PhotoUrl? PhotoUrl { get; private set; }
     public DataPrivacyControlFlags DataPrivacyState { get; private set; }
 
-    public UserProfile(Guid id, Email email, Username username, FirstName firstName, LastName lastName,
-        PhoneNumber phoneNumber, PhotoUrl photoUrl, DataPrivacyControlFlags dataPrivacyState)
+    public UserProfile(Guid id, Email email, Username username,
+        FirstName firstName, LastName lastName,
+        DataPrivacyControlFlags dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy,
+        PhoneNumber? phoneNumber = null, PhotoUrl? photoUrl = null)
         : base(id)
     {
         Id = id;
@@ -23,34 +25,35 @@ public class UserProfile : Entity<Guid>
         Username = username ?? throw new ArgumentNullException(nameof(username));
         FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
         LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+        DataPrivacyState = dataPrivacyState;
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
-        DataPrivacyState = dataPrivacyState;
     }
 
     public void ChangeFirstName(FirstName newFirstName)
-    {
-        FirstName = newFirstName ?? throw new ArgumentNullException(nameof(newFirstName));
-    }
+        => FirstName = newFirstName ?? throw new ArgumentNullException(nameof(newFirstName));
 
     public void ChangeLastname(LastName newLastName)
+        => LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
+
+    public void AddPhoneNumber(string? phoneNumberValue)
     {
-        LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
+        if (PhoneNumber is null && phoneNumberValue is not null)
+            ChangePhoneNumber(new PhoneNumber(phoneNumberValue));
     }
 
     public void ChangePhoneNumber(PhoneNumber? newPhoneNumber)
+        => PhoneNumber = newPhoneNumber;
+
+    public void AddPhotoUrl(string? photoUrlValue)
     {
-        PhoneNumber = newPhoneNumber;
+        if (PhotoUrl is null && photoUrlValue is not null)
+            ChangePhotoUrl(new PhotoUrl(photoUrlValue));
     }
 
     public void ChangePhotoUrl(PhotoUrl? newPhotoUrl)
-    {
-        PhotoUrl = newPhotoUrl;
-    }
+        => PhotoUrl = newPhotoUrl;
 
     public void ChangeDataPrivacyState(DataPrivacyControlFlags newDataPrivacyState)
-    {
-        DataPrivacyState = newDataPrivacyState;
-
-    }
+        => DataPrivacyState = newDataPrivacyState;
 }

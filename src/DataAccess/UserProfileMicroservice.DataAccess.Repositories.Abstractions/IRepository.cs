@@ -9,7 +9,7 @@ public interface IRepository<TEntity, in TId>
     Task<IEnumerable<TEntity>> GetAllAsync();
     Task<TEntity?> GetByIdAsync(TId id);
     Task<TEntity> AddAsync(TEntity entity);
-    Task UpdateAsync(TEntity entity);
-    Task DeleteAsync(TEntity entity);
-    Task DeleteAsync(TId id);
+    Task<bool> UpdateAsync(TEntity entity);
+    Task<bool> DeleteAsync(TEntity entity);
+    Task<bool> DeleteAsync(TId id);
 }
