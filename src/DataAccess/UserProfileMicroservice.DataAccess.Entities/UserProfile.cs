@@ -1,4 +1,5 @@
 ﻿using UserProfileMicroservice.Common.Enumerations;
+using UserProfileMicroservice.Common.Extensions;
 using UserProfileMicroservice.DataAccess.Entities.Base;
 using UserProfileMicroservice.DataAccess.ValueObjects;
 
@@ -16,7 +17,7 @@ public class UserProfile : Entity<Guid>
 
     public UserProfile(Guid id, Email email, Username username,
         FirstName firstName, LastName lastName,
-        DataPrivacyControlFlags dataPrivacyState = DataPrivacyControlFlags.CompletePrivacy,
+        DataPrivacyControlFlags dataPrivacyState,
         PhoneNumber? phoneNumber = null, PhotoUrl? photoUrl = null)
         : base(id)
     {
@@ -30,29 +31,29 @@ public class UserProfile : Entity<Guid>
         PhotoUrl = photoUrl;
     }
 
-    public void ChangeFirstName(FirstName newFirstName)
-        => FirstName = newFirstName ?? throw new ArgumentNullException(nameof(newFirstName));
+    public void ChangeFirstName(string firstNameValue)
+        => FirstName = new FirstName(firstNameValue.ToTitleCase());
 
-    public void ChangeLastname(LastName newLastName)
-        => LastName = newLastName ?? throw new ArgumentNullException(nameof(newLastName));
+    public void ChangeLastname(string lastNameValue)
+        => LastName = new LastName(lastNameValue.ToTitleCase());
 
     public void AddPhoneNumber(string? phoneNumberValue)
     {
         if (PhoneNumber is null && phoneNumberValue is not null)
-            ChangePhoneNumber(new PhoneNumber(phoneNumberValue));
+            ChangePhoneNumber(phoneNumberValue);
     }
 
-    public void ChangePhoneNumber(PhoneNumber? newPhoneNumber)
-        => PhoneNumber = newPhoneNumber;
+    public void ChangePhoneNumber(string? phoneNumberValue)
+        => PhoneNumber = phoneNumberValue is null ? null : new PhoneNumber(phoneNumberValue);
 
     public void AddPhotoUrl(string? photoUrlValue)
     {
         if (PhotoUrl is null && photoUrlValue is not null)
-            ChangePhotoUrl(new PhotoUrl(photoUrlValue));
+            ChangePhotoUrl(photoUrlValue);
     }
 
-    public void ChangePhotoUrl(PhotoUrl? newPhotoUrl)
-        => PhotoUrl = newPhotoUrl;
+    public void ChangePhotoUrl(string? photoUrlValue)
+        => PhotoUrl = photoUrlValue is null ? null : new PhotoUrl(photoUrlValue);
 
     public void ChangeDataPrivacyState(DataPrivacyControlFlags newDataPrivacyState)
         => DataPrivacyState = newDataPrivacyState;

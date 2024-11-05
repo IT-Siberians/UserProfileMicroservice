@@ -1,0 +1,30 @@
+services:
+  backend:    
+    build:
+     context: ./src
+     dockerfile: WebApi/UserProfileMicroservice.WebHost/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+       db:
+        condition: service_healthy
+  db:
+    image: postgres:latest
+    container_name: pgdbprofiles
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "profilesdb"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "45Uv0I7z3ch"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "profilesdb", "-U", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+volumes:
+  data:

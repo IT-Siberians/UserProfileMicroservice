@@ -2,10 +2,8 @@
 
 namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 
-public record CreateUserProfileModel(
+public record UpdateUserProfileModel(
     Guid Id,
-    string Email,
-    string Username,
     string FirstName,
     string LastName,
     string? PhoneNumber,
