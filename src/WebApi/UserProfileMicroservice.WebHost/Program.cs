@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen(
             Description = "The User Profile API for managing user data."
         });
     });
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString(nameof(ApplicationDbContext));
@@ -28,19 +29,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             throw new InvalidOperationException($"Connection string for {nameof(ApplicationDbContext)} is not configured.");
         options.UseNpgsql(connectionString);
     });
+
 builder.Services.AddScoped<IUserProfileRepository, EFUserProfileRepository>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.MapControllers();
+
 app.MigrateDatabase<ApplicationDbContext>();
 
 app.Run();

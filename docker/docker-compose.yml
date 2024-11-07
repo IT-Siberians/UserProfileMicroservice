@@ -1,0 +1,24 @@
+services:
+  backend:    
+    build:
+     context: ../src
+     dockerfile: ../src/Dockerfile
+    restart: always
+    volumes:
+      - ../src/WebApi\UserProfileMicroservice.WebHost/appsettings.json:/app/appsettings.json
+    ports:
+      - "8080:8080"
+    depends_on:
+       db:
+        condition: service_healthy
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    env_file: ".env"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
