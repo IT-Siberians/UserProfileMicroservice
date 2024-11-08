@@ -14,18 +14,8 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["WebApi/UserProfileMicroservice.WebHost/UserProfileMicroservice.WebHost.csproj", "WebApi/UserProfileMicroservice.WebHost/"]
-COPY ["BusinessLogic/UserProfileMicroservice.BusinessLogic.Contracts/UserProfileMicroservice.BusinessLogic.Contracts.csproj", "BusinessLogic/UserProfileMicroservice.BusinessLogic.Contracts/"]
-COPY ["Common/UserProfileMicroservice.Common/UserProfileMicroservice.Common.csproj", "Common/UserProfileMicroservice.Common/"]
-COPY ["BusinessLogic/UserProfileMicroservice.BusinessLogic.Services.Abstractions/UserProfileMicroservice.BusinessLogic.Services.Abstractions.csproj", "BusinessLogic/UserProfileMicroservice.BusinessLogic.Services.Abstractions/"]
-COPY ["BusinessLogic/UserProfileMicroservice.BusinessLogic.Services.Implementations/UserProfileMicroservice.BusinessLogic.Services.Implementations.csproj", "BusinessLogic/UserProfileMicroservice.BusinessLogic.Services.Implementations/"]
-COPY ["DataAccess/UserProfileMicroservice.DataAccess.Entities/UserProfileMicroservice.DataAccess.Entities.csproj", "DataAccess/UserProfileMicroservice.DataAccess.Entities/"]
-COPY ["DataAccess/UserProfileMicroservice.DataAccess.ValueObjects/UserProfileMicroservice.DataAccess.ValueObjects.csproj", "DataAccess/UserProfileMicroservice.DataAccess.ValueObjects/"]
-COPY ["DataAccess/UserProfileMicroservice.DataAccess.Repositories.Abstractions/UserProfileMicroservice.DataAccess.Repositories.Abstractions.csproj", "DataAccess/UserProfileMicroservice.DataAccess.Repositories.Abstractions/"]
-COPY ["DataAccess/UserProfileMicroservice.DataAccess.EntityFramework/UserProfileMicroservice.DataAccess.EntityFramework.csproj", "DataAccess/UserProfileMicroservice.DataAccess.EntityFramework/"]
-COPY ["DataAccess/UserProfileMicroservice.DataAccess.Repositories.Implementations/UserProfileMicroservice.DataAccess.Repositories.Implementations.csproj", "DataAccess/UserProfileMicroservice.DataAccess.Repositories.Implementations/"]
-RUN dotnet restore "./WebApi/UserProfileMicroservice.WebHost/UserProfileMicroservice.WebHost.csproj"
 COPY . .
+RUN dotnet restore "./WebApi/UserProfileMicroservice.WebHost/UserProfileMicroservice.WebHost.csproj"
 WORKDIR "/src/WebApi/UserProfileMicroservice.WebHost"
 RUN dotnet build "./UserProfileMicroservice.WebHost.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

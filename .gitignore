@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/src/WebApi/UserProfileMicroservice.WebHost/appsettings.Development.json
+/docker/cmd/*.bat
+/docker/.db_env
+/docker/.backend_env
+/docker/db.env
+/docker/backend.env

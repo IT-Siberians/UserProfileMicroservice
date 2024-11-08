@@ -3,24 +3,33 @@ using UserProfileMicroservice.Common.Validation;
 
 namespace UserProfileMicroservice.WebHost.Requests;
 
-public record CreateProfileRequest(
-    Guid Id,
+public class CreateProfileRequest
+{
+    public required Guid Id { get; init; }
+
     [EmailAddress]
-    string Email,
+    public required string Email { get; init; }
+
     [MinLength(UsernameValidationHelper.UsernameMinimumLength)]
     [MaxLength(UsernameValidationHelper.UsernameMaximumLength)]
     [RegularExpression(UsernameValidationHelper.UsernameCharacterSetPattern)]
-    string Username,
+    public required string Username { get; init; }
+
     [MaxLength(FirstNameValidationHelper.FirstNameMaximumLength)]
     [RegularExpression(FirstNameValidationHelper.FirstNameCharacterSetPattern)]
-    string FirstName,
+    public required string FirstName { get; init; }
+
     [MaxLength(LastNameValidationHelper.LastNameMaximumLength)]
     [RegularExpression(LastNameValidationHelper.LastNameCharacterSetPattern)]
-    string LastName,
+    public required string LastName { get; init; }
+
     [Phone]
-    string? PhoneNumber,
+    public required string? PhoneNumber { get; init; }
+
     [Url]
-    string? PhotoUrl,
-    bool IsEmailPublished,
-    bool IsNamePublished,
-    bool IsPhoneNumberPublished);
+    public required string? PhotoUrl { get; init; }
+
+    public required bool IsEmailPublished { get; init; }
+    public required bool IsNamePublished { get; init; }
+    public required bool IsPhoneNumberPublished { get; init; }
+}

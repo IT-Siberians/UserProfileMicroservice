@@ -3,9 +3,8 @@ services:
     build:
      context: ../src
      dockerfile: ../src/Dockerfile
+    env_file: "backend.env"
     restart: always
-    volumes:
-      - ../src/WebApi\UserProfileMicroservice.WebHost/appsettings.json:/app/appsettings.json
     ports:
       - "8080:8080"
     depends_on:
@@ -13,8 +12,7 @@ services:
         condition: service_healthy
   db:
     image: postgres:latest
-    restart: unless-stopped
-    env_file: ".env"
+    env_file: "db.env"
     volumes:
       - ./data:/var/lib/postgresql/data
     healthcheck:

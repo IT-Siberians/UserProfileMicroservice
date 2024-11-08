@@ -1,3 +1,5 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using UserProfileMicroservice.BusinessLogic.Services.Abstractions;
@@ -22,22 +24,30 @@ builder.Services.AddSwaggerGen(
         });
     });
 
+var dbConnectionString = builder.Configuration["DB_CONNECTION_STRING"];
+if (string.IsNullOrEmpty(dbConnectionString))
+    throw new InvalidOperationException($"Connection string for {nameof(ApplicationDbContext)} is not configured.");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     {
-        var connectionString = builder.Configuration.GetConnectionString(nameof(ApplicationDbContext));
-        if (string.IsNullOrEmpty(connectionString))
-            throw new InvalidOperationException($"Connection string for {nameof(ApplicationDbContext)} is not configured.");
-        options.UseNpgsql(connectionString);
+        options.UseNpgsql(dbConnectionString);
     });
 
 builder.Services.AddScoped<IUserProfileRepository, EFUserProfileRepository>();
 builder.Services.AddScoped<IUserProfileService, UserProfileService>();
+builder.Services.AddHealthChecks()
+    .AddNpgSql(dbConnectionString)
+    .AddDbContextCheck<ApplicationDbContext>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseSwagger();
 app.UseSwaggerUI();
+app.MapHealthChecks("health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.MapControllers();
 
 app.MigrateDatabase<ApplicationDbContext>();

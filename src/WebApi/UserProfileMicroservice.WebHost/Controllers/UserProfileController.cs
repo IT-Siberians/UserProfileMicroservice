@@ -62,7 +62,5 @@ public class UserProfileController(IUserProfileService userProfileService)
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
     public async Task<ActionResult<bool>> DeleteAsync(Guid id)
-    {
-        return await userProfileService.DeleteAsync(id) is true ? NoContent() : BadRequest("Profile can not be deleted");
-    }
+        => await userProfileService.DeleteAsync(id) is true ? NoContent() : BadRequest("Profile can not be deleted");
 }
