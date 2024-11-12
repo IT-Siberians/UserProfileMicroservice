@@ -10,4 +10,5 @@ public interface IUserProfileService
     Task<UserProfileModel?> CreateAsync(CreateUserProfileModel profileModel);
     Task<UserProfileModel?> UpdateAsync(UpdateUserProfileModel updateProfileModel);
     Task<bool> DeleteAsync(Guid id);
+    Task<UserProfileModel?> ChangeEmailAsync(Guid id, string email);
 }

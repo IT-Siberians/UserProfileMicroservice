@@ -5,7 +5,7 @@ using UserProfileMicroservice.DataAccess.Repositories.Abstractions;
 
 namespace UserProfileMicroservice.BusinessLogic.Services.Implementations;
 
-public class UserProfileService(IUserProfileRepository userProfileRepository) : IUserProfileService
+public class UserProfileService(IUserProfileRepository userProfileRepository, INotificationService notificationService) : IUserProfileService
 {
     public async Task<UserProfileModel?> CreateAsync(CreateUserProfileModel createProfileModel)
     {
@@ -13,6 +13,8 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
         if (!await userProfileRepository.CanCreateAsync(createProfile))
             return null;
         await userProfileRepository.AddAsync(createProfile);
+        await notificationService.PublishUserIsCreatedAsync(createProfileModel);
+
         return createProfile.ToModel();
     }
 
@@ -48,6 +50,24 @@ public class UserProfileService(IUserProfileRepository userProfileRepository) : 
         profile.ChangePhotoUrl(updateProfileModel.PhotoUrl);
         profile.ChangeDataPrivacyState(updateProfileModel.DataPrivacyState);
 
-        return await userProfileRepository.UpdateAsync(profile) ? profile.ToModel() : null;
+        if (!await userProfileRepository.UpdateAsync(profile))
+            return null;
+        await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
+        return profile.ToModel();
     }
+
+    public async Task<UserProfileModel?> ChangeEmailAsync(Guid id, string email)
+    {
+        var profile = await userProfileRepository.GetByIdAsync(id);
+        if (profile is null)
+            return null;
+
+        if (!profile.ChangeEmail(email))
+            return null;
+        if (!await userProfileRepository.UpdateAsync(profile))
+            return null;
+        await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
+        return profile.ToModel();
+    }
+
 }

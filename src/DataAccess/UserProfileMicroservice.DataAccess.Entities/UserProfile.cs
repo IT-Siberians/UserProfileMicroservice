@@ -7,7 +7,7 @@ namespace UserProfileMicroservice.DataAccess.Entities;
 
 public class UserProfile : Entity<Guid>
 {
-    public Email Email { get; }
+    public Email Email { get; private set; }
     public Username Username { get; }
     public FirstName FirstName { get; private set; }
     public LastName LastName { get; private set; }
@@ -29,6 +29,19 @@ public class UserProfile : Entity<Guid>
         DataPrivacyState = dataPrivacyState;
         PhoneNumber = phoneNumber;
         PhotoUrl = photoUrl;
+    }
+
+    public bool ChangeEmail(string emailValue)
+    {
+        try
+        {
+            Email = new Email(emailValue);
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
     }
 
     public void ChangeFirstName(string firstNameValue)

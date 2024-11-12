@@ -1,8 +1,8 @@
 ﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
-using UserProfileMicroservice.Common.Enumerations;
 using UserProfileMicroservice.Common.Utils;
 using UserProfileMicroservice.WebHost.Requests;
 using UserProfileMicroservice.WebHost.Responses;
+using Otus.QueueDto.User;
 
 namespace UserProfileMicroservice.WebHost.Mapping;
 
@@ -67,5 +67,24 @@ internal static class MappingExtensions
             dataPrivacyConfigurator.IsNamePublished ? profileModel.LastName : null,
             dataPrivacyConfigurator.IsPhoneNumberPublished ? profileModel.PhoneNumber : null,
             profileModel.PhotoUrl);
+    }
+
+    public static CreateUserEvent ToEvent(this CreateUserProfileModel profileModel)
+    {
+        return new CreateUserEvent(
+            profileModel.Id,
+            profileModel.Username,
+            $"{profileModel.FirstName} {profileModel.LastName}",
+            profileModel.Email,
+            String.Empty);
+    }
+
+    public static UpdateUserEvent ToEvent(this UserProfileModel profileModel)
+    {
+        return new UpdateUserEvent(
+            profileModel.Id,
+            profileModel.Username,
+            $"{profileModel.FirstName} {profileModel.LastName}",
+            profileModel.Email);
     }
 }
