@@ -7,7 +7,4 @@ public record CreateUserProfileModel(
     string Email,
     string Username,
     string FirstName,
-    string LastName,
-    string? PhoneNumber,
-    string? PhotoUrl,
-    DataPrivacyControlFlags DataPrivacyState);
+    string LastName);

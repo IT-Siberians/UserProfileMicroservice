@@ -33,17 +33,6 @@ public class UserProfileController(IUserProfileService userProfileService)
         return Ok(profile.ToPublicResponse());
     }
 
-    [HttpPost]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(OwnerProfileResponse))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-    public async Task<IActionResult> CreateProfile(CreateProfileRequest request)
-    {
-        var createdProfile = await userProfileService.CreateAsync(request.ToModel());
-        if (createdProfile is null)
-            return BadRequest("Profile can not be created");
-        return CreatedAtAction(nameof(GetProfileById), new { id = createdProfile.Id }, createdProfile.ToResponse());
-    }
-
     [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OwnerProfileResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]

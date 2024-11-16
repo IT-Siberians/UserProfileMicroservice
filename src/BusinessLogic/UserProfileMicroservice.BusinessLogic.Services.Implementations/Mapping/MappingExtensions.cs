@@ -47,16 +47,12 @@ internal static class MappingExtensions
         if (profileModel is null)
             throw new ArgumentNullException(nameof(profileModel));
 
-        var profile = new UserProfile(
+        return new UserProfile(
             profileModel.Id,
             new Email(profileModel.Email),
             new Username(profileModel.Username),
             new FirstName(profileModel.FirstName.ToTitleCase()),
             new LastName(profileModel.LastName.ToTitleCase()),
-            profileModel.DataPrivacyState);
-        profile.AddPhoneNumber(profileModel.PhoneNumber);
-        profile.AddPhotoUrl(profileModel.PhotoUrl);
-
-        return profile;
+            DataPrivacyControlFlags.CompletePrivacy);
     }
 }

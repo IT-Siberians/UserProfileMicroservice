@@ -8,22 +8,12 @@ namespace UserProfileMicroservice.WebHost.Mapping;
 
 internal static class MappingExtensions
 {
-    public static CreateUserProfileModel ToModel(this CreateProfileRequest createProfileRequest)
-    {
-        var dataPrivacyConfigurator = new DataPrivacyConfigurator();
-        dataPrivacyConfigurator.IsEmailPublished = createProfileRequest.IsEmailPublished;
-        dataPrivacyConfigurator.IsNamePublished = createProfileRequest.IsNamePublished;
-        dataPrivacyConfigurator.IsPhoneNumberPublished = createProfileRequest.IsPhoneNumberPublished;
-        return new CreateUserProfileModel(
-            createProfileRequest.Id,
-            createProfileRequest.Email,
-            createProfileRequest.Username,
-            createProfileRequest.FirstName,
-            createProfileRequest.LastName,
-            createProfileRequest.PhoneNumber,
-            createProfileRequest.PhotoUrl,
-            dataPrivacyConfigurator.GetDataPrivacyState());
-    }
+    public static CreateUserProfileModel ToModel(this UserSignUpEvent signUpEvent)
+        => new CreateUserProfileModel(signUpEvent.Id,
+            signUpEvent.Email,
+            signUpEvent.Username,
+            signUpEvent.FirstName,
+            signUpEvent.LastName);
 
     public static UpdateUserProfileModel ToModel(this UpdateProfileRequest updateProfileRequest)
     {
@@ -70,21 +60,17 @@ internal static class MappingExtensions
     }
 
     public static CreateUserEvent ToEvent(this CreateUserProfileModel profileModel)
-    {
-        return new CreateUserEvent(
+    => new CreateUserEvent(
             profileModel.Id,
             profileModel.Username,
             $"{profileModel.FirstName} {profileModel.LastName}",
             profileModel.Email,
             String.Empty);
-    }
 
     public static UpdateUserEvent ToEvent(this UserProfileModel profileModel)
-    {
-        return new UpdateUserEvent(
+        => new UpdateUserEvent(
             profileModel.Id,
             profileModel.Username,
             $"{profileModel.FirstName} {profileModel.LastName}",
             profileModel.Email);
-    }
 }
