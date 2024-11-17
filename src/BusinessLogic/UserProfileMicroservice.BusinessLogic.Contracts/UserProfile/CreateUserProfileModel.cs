@@ -1,4 +1,6 @@
-﻿namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
+﻿using UserProfileMicroservice.Common.Enumerations;
+
+namespace UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 
 public record CreateUserProfileModel(
     Guid Id,

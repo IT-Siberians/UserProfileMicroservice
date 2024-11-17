@@ -33,6 +33,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.Bus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.BusinessLogic.Services.Implementations", "BusinessLogic\UserProfileMicroservice.BusinessLogic.Services.Implementations\UserProfileMicroservice.BusinessLogic.Services.Implementations.csproj", "{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{9C367E39-4262-4F5F-8976-F274D9D72E64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserProfileMicroservice.WebHost", "WebApi\UserProfileMicroservice.WebHost\UserProfileMicroservice.WebHost.csproj", "{69E1DAB9-365D-4762-850A-FB98981DD1E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +79,10 @@ Global
 		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69E1DAB9-365D-4762-850A-FB98981DD1E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69E1DAB9-365D-4762-850A-FB98981DD1E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69E1DAB9-365D-4762-850A-FB98981DD1E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69E1DAB9-365D-4762-850A-FB98981DD1E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +97,7 @@ Global
 		{626CBED9-AC1C-4FBC-A6A4-4711FDD8A170} = {CDF96526-A857-4599-8F17-362F7798179E}
 		{B6952060-AA13-4528-BCA2-5BA3920F5E9E} = {CDF96526-A857-4599-8F17-362F7798179E}
 		{43BCBA89-9A95-4194-80CB-D5E75A4FC8DE} = {CDF96526-A857-4599-8F17-362F7798179E}
+		{69E1DAB9-365D-4762-850A-FB98981DD1E8} = {9C367E39-4262-4F5F-8976-F274D9D72E64}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19C64A63-378F-4217-A416-2BA61ABA45B7}
