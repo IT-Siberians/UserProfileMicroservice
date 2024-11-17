@@ -3,7 +3,7 @@ services:
     build:
      context: ../src
      dockerfile: ../src/Dockerfile
-    restart: always
+    restart: unless-stopped
     env_file: "backend.env"
     ports:
       - "8080:8080"

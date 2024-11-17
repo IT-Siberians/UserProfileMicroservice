@@ -75,4 +75,11 @@ app.MapControllers();
 
 app.MigrateDatabase<ApplicationDbContext>();
 
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
+
 app.Run();

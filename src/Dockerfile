@@ -2,9 +2,8 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-EXPOSE 8080
 
-ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
 
 USER app
 WORKDIR /app
