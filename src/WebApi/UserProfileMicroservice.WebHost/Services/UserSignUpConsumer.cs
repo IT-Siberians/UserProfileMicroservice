@@ -8,7 +8,5 @@ namespace UserProfileMicroservice.WebHost.Services;
 public class UserSignUpConsumer(IUserProfileService userProfileService) : IConsumer<UserSignUpEvent>
 {
     public async Task Consume(ConsumeContext<UserSignUpEvent> context)
-    {
-        await userProfileService.CreateAsync(context.Message.ToModel());
-    }
+        => await userProfileService.CreateAsync(context.Message.ToModel());
 }

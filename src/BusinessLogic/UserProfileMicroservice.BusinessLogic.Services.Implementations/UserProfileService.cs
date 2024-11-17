@@ -1,6 +1,7 @@
 ﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 using UserProfileMicroservice.BusinessLogic.Services.Abstractions;
 using UserProfileMicroservice.BusinessLogic.Services.Implementations.Mapping;
+using UserProfileMicroservice.Common.Extensions;
 using UserProfileMicroservice.DataAccess.Repositories.Abstractions;
 
 namespace UserProfileMicroservice.BusinessLogic.Services.Implementations;
@@ -62,8 +63,11 @@ public class UserProfileService(IUserProfileRepository userProfileRepository, IN
         if (profile is null)
             return null;
 
-        if (!profile.ChangeEmail(email))
+        if (!email.IsEmailAddress())
             return null;
+
+        profile.ChangeEmail(email);
+
         if (!await userProfileRepository.UpdateAsync(profile))
             return null;
         await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
