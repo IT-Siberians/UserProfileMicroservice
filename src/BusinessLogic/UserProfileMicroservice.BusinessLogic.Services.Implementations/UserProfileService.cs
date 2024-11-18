@@ -57,21 +57,19 @@ public class UserProfileService(IUserProfileRepository userProfileRepository, IN
         return profile.ToModel();
     }
 
-    public async Task<UserProfileModel?> ChangeEmailAsync(Guid id, string email)
+    public async Task<bool> ChangeEmailAsync(Guid id, string email)
     {
         var profile = await userProfileRepository.GetByIdAsync(id);
-        if (profile is null)
-            return null;
 
-        if (!email.IsEmailAddress())
-            return null;
+        if (profile is null || !email.IsEmailAddress())
+            return false;
 
         profile.ChangeEmail(email);
 
         if (!await userProfileRepository.UpdateAsync(profile))
-            return null;
-        await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
-        return profile.ToModel();
-    }
+            return false;
 
+        await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
+        return true;
+    }
 }

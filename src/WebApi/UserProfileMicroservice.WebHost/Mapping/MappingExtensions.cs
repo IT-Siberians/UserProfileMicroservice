@@ -63,14 +63,17 @@ internal static class MappingExtensions
         => new CreateUserEvent(
             profileModel.Id,
             profileModel.Username,
-            $"{profileModel.FirstName} {profileModel.LastName}",
+            profileModel.FullName(),
             profileModel.Email,
             String.Empty);
 
     public static UpdateUserEvent ToEvent(this UserProfileModel profileModel)
         => new UpdateUserEvent(
             profileModel.Id,
-            $"{profileModel.FirstName} {profileModel.LastName}",
+            profileModel.FullName(),
             profileModel.Email,
             String.Empty);
+
+    private static string FullName(this IUserProfileModel profileModel)
+        => $"{profileModel.FirstName} {profileModel.LastName}";
 }

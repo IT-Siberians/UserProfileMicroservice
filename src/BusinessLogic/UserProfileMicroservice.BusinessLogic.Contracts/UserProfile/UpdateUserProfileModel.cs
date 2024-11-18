@@ -8,4 +8,5 @@ public record UpdateUserProfileModel(
     string LastName,
     string? PhoneNumber,
     string? PhotoUrl,
-    DataPrivacyControlFlags DataPrivacyState);
+    DataPrivacyControlFlags DataPrivacyState)
+    : IUserProfileModel;
