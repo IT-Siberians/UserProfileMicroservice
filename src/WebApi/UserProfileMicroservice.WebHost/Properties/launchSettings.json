@@ -3,6 +3,7 @@
         "UserProfileMicroservice.WebHost": {
             "commandName": "Project",
             "launchBrowser": true,
+            "launchUrl": "swagger",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "DB_CONNECTION_STRING": "Database=AuctionProfiles;Host=localhost;Port=5432;Username=postgres;Password=1234;",
