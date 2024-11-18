@@ -31,18 +31,8 @@ public class UserProfile : Entity<Guid>
         PhotoUrl = photoUrl;
     }
 
-    public bool ChangeEmail(string emailValue)
-    {
-        try
-        {
-            Email = new Email(emailValue);
-        }
-        catch
-        {
-            return false;
-        }
-        return true;
-    }
+    public void ChangeEmail(string emailValue)
+        => Email = new Email(emailValue);
 
     public void ChangeFirstName(string firstNameValue)
         => FirstName = new FirstName(firstNameValue.ToTitleCase());

@@ -73,6 +73,13 @@ app.MapHealthChecks("health", new HealthCheckOptions
 });
 app.MapControllers();
 
-app.MigrateDatabase<ApplicationDbContext>();
+await app.MigrateDatabaseAsync<ApplicationDbContext>();
+
+app.UseCors(policy =>
+{
+    policy.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+});
 
 app.Run();

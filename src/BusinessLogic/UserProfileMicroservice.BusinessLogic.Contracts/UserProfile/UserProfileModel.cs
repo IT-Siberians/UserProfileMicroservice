@@ -10,4 +10,5 @@ public record UserProfileModel(
     string LastName,
     string? PhoneNumber,
     string? PhotoUrl,
-    DataPrivacyControlFlags DataPrivacyState);
+    DataPrivacyControlFlags DataPrivacyState)
+    : IUserProfileModel;

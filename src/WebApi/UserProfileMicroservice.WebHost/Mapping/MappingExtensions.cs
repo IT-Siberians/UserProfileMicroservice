@@ -1,8 +1,8 @@
-﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
+﻿using Otus.QueueDto.User;
+using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 using UserProfileMicroservice.Common.Utils;
 using UserProfileMicroservice.WebHost.Requests;
 using UserProfileMicroservice.WebHost.Responses;
-using Otus.QueueDto.User;
 
 namespace UserProfileMicroservice.WebHost.Mapping;
 
@@ -60,17 +60,20 @@ internal static class MappingExtensions
     }
 
     public static CreateUserEvent ToEvent(this CreateUserProfileModel profileModel)
-    => new CreateUserEvent(
+        => new CreateUserEvent(
             profileModel.Id,
             profileModel.Username,
-            $"{profileModel.FirstName} {profileModel.LastName}",
+            profileModel.FullName(),
             profileModel.Email,
             String.Empty);
 
     public static UpdateUserEvent ToEvent(this UserProfileModel profileModel)
         => new UpdateUserEvent(
             profileModel.Id,
-            profileModel.Username,
-            $"{profileModel.FirstName} {profileModel.LastName}",
-            profileModel.Email);
+            profileModel.FullName(),
+            profileModel.Email,
+            String.Empty);
+
+    private static string FullName(this IUserProfileModel profileModel)
+        => $"{profileModel.FirstName} {profileModel.LastName}";
 }
