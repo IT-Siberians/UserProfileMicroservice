@@ -11,7 +11,6 @@ public enum DataPrivacyControlFlags
     // All data is hidden for viewing. Default value for new users.
     CompletePrivacy = 0,
     Email = 0B00000001,
-    FirstName = 0B00000010,
-    LastName = 0B00000100,
-    PhoneNumber = 0B0001000,
+    Name = 0B00000010,
+    PhoneNumber = 0B00000100,
 }

@@ -1,12 +1,16 @@
-﻿using UserProfileMicroservice.DataAccess.Entities;
-using Microsoft.EntityFrameworkCore;
-
+﻿using Microsoft.EntityFrameworkCore;
+using UserProfileMicroservice.DataAccess.Entities;
 
 namespace UserProfileMicroservice.DataAccess.EntityFramework;
 
-public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
+public class ApplicationDbContext : DbContext
 {
     public DbSet<UserProfile> UserProfiles { get; set; }
+
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

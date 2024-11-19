@@ -1,5 +1,6 @@
 ﻿using UserProfileMicroservice.BusinessLogic.Contracts.UserProfile;
 using UserProfileMicroservice.Common.Enumerations;
+using UserProfileMicroservice.Common.Extensions;
 using UserProfileMicroservice.DataAccess.Entities;
 using UserProfileMicroservice.DataAccess.ValueObjects;
 
@@ -7,7 +8,7 @@ namespace UserProfileMicroservice.BusinessLogic.Services.Implementations.Mapping
 
 internal static class MappingExtensions
 {
-    public static UserProfileModel MapToModel(this UserProfile profile)
+    public static UserProfileModel ToModel(this UserProfile profile)
     {
         if (profile is null)
             throw new ArgumentNullException(nameof(profile));
@@ -23,7 +24,7 @@ internal static class MappingExtensions
             profile.DataPrivacyState);
     }
 
-    public static UserProfile MapToEntity(this UserProfileModel profileModel)
+    public static UserProfile ToEntity(this UserProfileModel profileModel)
     {
         if (profileModel is null)
             throw new ArgumentNullException(nameof(profileModel));
@@ -32,8 +33,8 @@ internal static class MappingExtensions
             profileModel.Id,
             new Email(profileModel.Email),
             new Username(profileModel.Username),
-            new FirstName(profileModel.FirstName),
-            new LastName(profileModel.LastName),
+            new FirstName(profileModel.FirstName.ToTitleCase()),
+            new LastName(profileModel.LastName.ToTitleCase()),
             profileModel.DataPrivacyState);
         profile.AddPhoneNumber(profileModel.PhoneNumber);
         profile.AddPhotoUrl(profileModel.PhotoUrl);
@@ -41,7 +42,7 @@ internal static class MappingExtensions
         return profile;
     }
 
-    public static UserProfile MapToEntity(this CreateUserProfileModel profileModel)
+    public static UserProfile ToEntity(this CreateUserProfileModel profileModel)
     {
         if (profileModel is null)
             throw new ArgumentNullException(nameof(profileModel));
@@ -50,7 +51,8 @@ internal static class MappingExtensions
             profileModel.Id,
             new Email(profileModel.Email),
             new Username(profileModel.Username),
-            new FirstName(profileModel.FirstName),
-            new LastName(profileModel.LastName));
+            new FirstName(profileModel.FirstName.ToTitleCase()),
+            new LastName(profileModel.LastName.ToTitleCase()),
+            DataPrivacyControlFlags.CompletePrivacy);
     }
 }

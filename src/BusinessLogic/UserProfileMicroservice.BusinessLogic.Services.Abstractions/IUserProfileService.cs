@@ -8,6 +8,7 @@ public interface IUserProfileService
     Task<UserProfileModel?> GetByIdAsync(Guid id);
     Task<UserProfileModel?> GetByUsernameAsync(string username);
     Task<UserProfileModel?> CreateAsync(CreateUserProfileModel profileModel);
-    Task<bool> UpdateAsync(UserProfileModel profileModel);
+    Task<UserProfileModel?> UpdateAsync(UpdateUserProfileModel updateProfileModel);
     Task<bool> DeleteAsync(Guid id);
+    Task<bool> ChangeEmailAsync(Guid id, string email);
 }

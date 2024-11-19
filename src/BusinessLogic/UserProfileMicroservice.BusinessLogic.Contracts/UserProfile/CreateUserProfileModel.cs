@@ -5,4 +5,5 @@ public record CreateUserProfileModel(
     string Email,
     string Username,
     string FirstName,
-    string LastName);
+    string LastName)
+    : IUserProfileModel;
