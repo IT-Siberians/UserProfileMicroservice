@@ -6,12 +6,12 @@ services:
     restart: unless-stopped
     env_file: "backend.env"
     ports:
-      - "8080:8080"
+      - "9002:9002"
     depends_on:
        db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:9002/health"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -22,7 +22,7 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      test: [ "CMD", "pg_isready", "-q", "-d", "profilesdb", "-U", "postgres" ]
       interval: 5s
       timeout: 5s
       retries: 5
