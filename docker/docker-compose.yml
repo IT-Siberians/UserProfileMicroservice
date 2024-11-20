@@ -1,5 +1,5 @@
 services:
-  backend:    
+  profiles_backend:    
     build:
      context: ../src
      dockerfile: ../src/Dockerfile
@@ -8,14 +8,14 @@ services:
     ports:
       - "9002:9002"
     depends_on:
-       db:
+       profiles_db:
         condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9002/health"]
       interval: 10s
       timeout: 5s
       retries: 5
-  db:
+  profiles_db:
     image: postgres:latest
     restart: unless-stopped
     env_file: "db.env"
