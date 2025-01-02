@@ -25,7 +25,7 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
 
     public async Task<bool> DeleteAsync(TId id)
     {
-        var entity = await GetByIdAsync(id);
+        var entity = await GetByIdAsync(id, CancellationToken.None);
         if (entity is null)
             return false;
         entity.Delete();
@@ -35,12 +35,12 @@ public class InMemoryRepository<TEntity, TId>(IEnumerable<TEntity> entities) : I
     public Task<IEnumerable<TEntity>> GetAllAsync()
         => Task.FromResult(EntityList.Where(x => !x.SoftDeleted).AsEnumerable());
 
-    public Task<TEntity?> GetByIdAsync(TId id)
+    public Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken)
         => Task.FromResult(EntityList.FirstOrDefault(x => x.Id.Equals(id) && !x.SoftDeleted));
 
-    public async Task<bool> UpdateAsync(TEntity entity)
+    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
-        var entityToUpdate = await GetByIdAsync(entity.Id);
+        var entityToUpdate = await GetByIdAsync(entity.Id, cancellationToken);
         if (entityToUpdate is null)
             return false;
         var index = EntityList.IndexOf(entityToUpdate);

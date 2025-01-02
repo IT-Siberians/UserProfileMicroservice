@@ -11,11 +11,11 @@ public class InMemoryUserProfileRepository(IEnumerable<UserProfile> userProfiles
     {
     }
 
-    public Task<UserProfile?> GetByUsernameAsync(string username)
+    public Task<UserProfile?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
         => Task.FromResult(EntityList.FirstOrDefault(x => x.Username.Value.Equals(username)));
 
     public async Task<bool> CanCreateAsync(UserProfile profile)
-        => await GetByIdAsync(profile.Id) is null
+        => await GetByIdAsync(profile.Id, CancellationToken.None) is null
         && !EntityList.Any(x => x.Email == profile.Email)
-        && await GetByUsernameAsync(profile.Username.Value) is null;
+        && await GetByUsernameAsync(profile.Username.Value, CancellationToken.None) is null;
 }

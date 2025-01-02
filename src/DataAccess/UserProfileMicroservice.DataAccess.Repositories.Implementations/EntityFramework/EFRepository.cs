@@ -22,7 +22,7 @@ public class EFRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
         => await DeleteAsync(entity.Id);
     public async Task<bool> DeleteAsync(TId id)
     {
-        var entity = await GetByIdAsync(id);
+        var entity = await GetByIdAsync(id, CancellationToken.None);
         if (entity is null)
             return false;
         entity.Delete();
@@ -33,13 +33,13 @@ public class EFRepository<TEntity, TId>(ApplicationDbContext context) : IReposit
     public async Task<IEnumerable<TEntity>> GetAllAsync()
         => (await Context.Set<TEntity>().AsNoTracking().ToListAsync()).AsEnumerable();
 
-    public virtual async Task<TEntity?> GetByIdAsync(TId id)
-        => await Context.Set<TEntity>().FindAsync(id);
+    public virtual async Task<TEntity?> GetByIdAsync(TId id, CancellationToken cancellationToken)
+        => await Context.Set<TEntity>().FindAsync(id, cancellationToken);
 
-    public async Task<bool> UpdateAsync(TEntity entity)
+    public async Task<bool> UpdateAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Context.Update(entity);
-        await context.SaveChangesAsync();
+        await context.SaveChangesAsync(cancellationToken);
         return true;
     }
 }

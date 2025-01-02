@@ -25,23 +25,23 @@ public class UserProfileService(IUserProfileRepository userProfileRepository, IN
     public async Task<IEnumerable<UserProfileModel>> GetAllAsync()
         => (await userProfileRepository.GetAllAsync()).Select(x => x.ToModel());
 
-    public async Task<UserProfileModel?> GetByIdAsync(Guid id)
+    public async Task<UserProfileModel?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var profile = await userProfileRepository.GetByIdAsync(id);
+        var profile = await userProfileRepository.GetByIdAsync(id, cancellationToken);
         return profile?.ToModel();
     }
 
-    public async Task<UserProfileModel?> GetByUsernameAsync(string username)
+    public async Task<UserProfileModel?> GetByUsernameAsync(string username, CancellationToken cancellationToken)
     {
-        var profile = await userProfileRepository.GetByUsernameAsync(username);
+        var profile = await userProfileRepository.GetByUsernameAsync(username, cancellationToken);
         return profile?.ToModel();
     }
 
-    public async Task<UserProfileModel?> UpdateAsync(UpdateUserProfileModel updateProfileModel)
+    public async Task<UserProfileModel?> UpdateAsync(UpdateUserProfileModel updateProfileModel, CancellationToken cancellationToken)
     {
         if (updateProfileModel is null)
             return null;
-        var profile = await userProfileRepository.GetByIdAsync(updateProfileModel.Id);
+        var profile = await userProfileRepository.GetByIdAsync(updateProfileModel.Id, cancellationToken);
         if (profile is null)
             return null;
 
@@ -51,7 +51,7 @@ public class UserProfileService(IUserProfileRepository userProfileRepository, IN
         profile.ChangePhotoUrl(updateProfileModel.PhotoUrl);
         profile.ChangeDataPrivacyState(updateProfileModel.DataPrivacyState);
 
-        if (!await userProfileRepository.UpdateAsync(profile))
+        if (!await userProfileRepository.UpdateAsync(profile, cancellationToken))
             return null;
         await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
         return profile.ToModel();
@@ -59,14 +59,14 @@ public class UserProfileService(IUserProfileRepository userProfileRepository, IN
 
     public async Task<bool> ChangeEmailAsync(Guid id, string email)
     {
-        var profile = await userProfileRepository.GetByIdAsync(id);
+        var profile = await userProfileRepository.GetByIdAsync(id, CancellationToken.None);
 
         if (profile is null || !email.IsEmailAddress())
             return false;
 
         profile.ChangeEmail(email);
 
-        if (!await userProfileRepository.UpdateAsync(profile))
+        if (!await userProfileRepository.UpdateAsync(profile, CancellationToken.None))
             return false;
 
         await notificationService.PublishUserIsUpdatedAsync(profile.ToModel());
