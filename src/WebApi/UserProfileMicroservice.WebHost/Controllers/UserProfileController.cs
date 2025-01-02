@@ -39,10 +39,4 @@ public class UserProfileController(IUserProfileService userProfileService)
         var updatedProfile = await userProfileService.UpdateAsync(updateProfile.ToModel());
         return updatedProfile is null ? BadRequest("Profile can not be updated") : Ok(updatedProfile.ToResponse());
     }
-
-    [HttpDelete("{id:guid}")]
-    [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-        => await userProfileService.DeleteAsync(id) is true ? NoContent() : BadRequest("Profile can not be deleted");
 }
